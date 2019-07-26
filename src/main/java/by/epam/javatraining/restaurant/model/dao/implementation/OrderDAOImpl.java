@@ -3,10 +3,7 @@ package by.epam.javatraining.restaurant.model.dao.implementation;
 import by.epam.javatraining.restaurant.model.dao.AbstractDAO;
 import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.entity.*;
-import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.model.exception.DishDAOException;
 import by.epam.javatraining.restaurant.model.exception.OrderDAOException;
-import by.epam.javatraining.restaurant.model.exception.UserDAOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,6 +40,13 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
             "FROM `order`\n" +
             "    INNER JOIN order_state on `order`.idorder = order_state.idorder\n" +
             "    INNER JOIN order_detail on `order`.idorder = order_detail.idorder;";
+
+    private static final String SQL_DELETE_ORDER_DETAIL = "delete from order_detail where idorder = ?;";
+
+    private static final String SQl_INSERT_ORDER_DETAILS = "insert into order_detail (idorder, iddish) VALUES (?, ?);";
+
+    private static final String SQL_UPDATE_ORDER = "update `order` set totalprice = ?, totalweight = ? where idorder = ?;";
+
 
     @Override
     public void insert(Entity entity) throws OrderDAOException {
@@ -82,7 +86,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
                     throw new OrderDAOException("Couldn't insert order");
                 }
             } catch (SQLException e) {
-                throw new OrderDAOException("Couldn't update order" + e.getMessage());
+                throw new OrderDAOException("Couldn't insert order" + e.getMessage());
             } finally {
                 returnConnection(connection);
             }
@@ -91,12 +95,51 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
     @Override
     public void delete(int idClient) throws OrderDAOException {
-        updateStatement(SQL_DELETE_ORDER, "Couldn't delete order", idClient);
+        updateStatement(SQL_DELETE_ORDER, "Couldn't delete order ", idClient);
     }
 
     @Override
-    public void update(int idEntity, Entity entity) throws DAOException {
+    public void update(int idEntity, Entity entity) throws OrderDAOException {
+        if (entity instanceof Order) {
+            Order order = (Order) entity;
+            Object[] values = {
+                    order.getTotalPrice(),
+                    order.getTotalWeight(),
+                    idEntity
+            };
+            Connection connection = getConnection();
 
+            try {
+                PreparedStatement preparedStatementOrderDetail = prepareStatement(connection,
+                        SQL_DELETE_ORDER_DETAIL, false, idEntity);
+
+                connection.setAutoCommit(false);
+
+                int affectedRowsOrderDetail = preparedStatementOrderDetail.executeUpdate();
+
+                for (Map.Entry<Integer, Integer> entry : order.getDishes().entrySet()) {
+                    for (int i = 0; i < entry.getValue(); i++) {
+                        PreparedStatement preparedStatementDish = prepareStatement(connection,
+                                SQl_INSERT_ORDER_DETAILS, false, idEntity, entry.getKey());
+                        preparedStatementDish.executeUpdate();
+                    }
+                }
+
+                PreparedStatement preparedStatementOrder = prepareStatement(connection,
+                        SQL_UPDATE_ORDER, false, values);
+
+                int affectedRowsOrder = preparedStatementOrder.executeUpdate();
+
+                connection.commit();
+                if (affectedRowsOrder == 0 || affectedRowsOrderDetail == 0){
+                    throw new OrderDAOException("Couldn't update order");
+                }
+            } catch (SQLException e) {
+                throw new OrderDAOException("Couldn't update order" + e.getMessage());
+            } finally {
+                returnConnection(connection);
+            }
+        }
     }
 
     @Override

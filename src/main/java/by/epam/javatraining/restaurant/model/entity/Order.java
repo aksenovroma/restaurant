@@ -15,6 +15,12 @@ public class Order extends Entity{
 
     public Order() {}
 
+    public Order(double totalPrice, double totalWeight, Map<Integer, Integer> dishes) {
+        this.totalPrice = totalPrice;
+        this.totalWeight = totalWeight;
+        this.dishes = dishes;
+    }
+
     public Order(int idClient, int idCourier, String time,
                  OrderState orderState, double totalPrice, double totalWeight, String address, Map<Integer, Integer> dishes) {
         this.idClient = idClient;

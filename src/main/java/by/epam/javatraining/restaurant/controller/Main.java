@@ -29,17 +29,17 @@ public class Main {
             Dish dish1 = (Dish) dishDAO.getById(2);
             Dish dish2 = (Dish) dishDAO.getById(4);
             HashMap<Integer, Integer> map = new HashMap<>();
-            map.put(2, 1);
-            map.put(4, 1);
+            map.put(2, 2);
+            map.put(4, 2);
 
             User client = userDAO.getByLogin("romashka@mail.ru");
             User waiter = (User) userDAO.getById(10);
 
             Date date = new Date();
 
-            Order order = new Order(waiter.getId(), date.toString(), 720, 530,"Сурганова 37 к 2", map);
+            Order order = new Order(880, 230, map);
 
-            System.out.println(orderDAO.getAll());
+            orderDAO.update(28, order);
 
         } catch (DAOException e) {
             e.printStackTrace();
