@@ -1,7 +1,7 @@
 package by.epam.javatraining.restaurant.model.entity;
 
 public enum OrderState {
-    PAID("paid"), NOT_PAID("not_paid");
+    ACCEPTED("accepted"), NOT_ACCEPTED("not_accepted");
 
     private String state;
 

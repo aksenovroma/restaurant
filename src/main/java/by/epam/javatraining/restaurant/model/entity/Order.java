@@ -37,7 +37,7 @@ public class Order extends Entity{
         this.idClient = idClient;
         idCourier = 1;
         this.time = time;
-        this.orderState = OrderState.NOT_PAID;
+        this.orderState = OrderState.NOT_ACCEPTED;
         this.totalPrice = totalPrice;
         this.totalWeight = totalWeight;
         this.address = address;
@@ -48,7 +48,7 @@ public class Order extends Entity{
         this.idClient = idClient;
         this.idCourier = idCourier;
         this.time = time;
-        this.orderState = OrderState.NOT_PAID;
+        this.orderState = OrderState.NOT_ACCEPTED;
         this.totalPrice = totalPrice;
         this.totalWeight = totalWeight;
         this.address = address;

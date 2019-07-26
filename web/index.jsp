@@ -9,8 +9,31 @@
 <html>
   <head>
     <title>$Title$</title>
+    <style type="text/css">
+      #btn_menu {
+        margin-top: 170px;
+        color: #fff; /* цвет текста */
+        text-decoration: none; /* убирать подчёркивание у ссылок */
+        user-select: none; /* убирать выделение текста */
+        background: rgb(133, 181, 165); /* фон кнопки */
+        padding: .7em 1.5em;
+        font-size: 40px;
+        height: 100px;
+        width: 300px;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+    </style>
   </head>
   <body>
-  $END$
+  <%@include file="view/header.jsp"%>
+
+  <form method="post" action="${pageContext.request.contextPath}/restaurant">
+    <input type="hidden" name="command" value="show_menu"/>
+    <input id="btn_menu" type="submit" value="Menu"/>
+  </form>
+
+  <%@include file="view/footer.jsp"%>
   </body>
 </html>
