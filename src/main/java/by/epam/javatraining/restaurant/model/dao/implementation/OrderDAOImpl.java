@@ -176,19 +176,22 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
         Map<Integer, Integer> dishes = new HashMap<>();
         int idDish = resultSet.getInt("iddish");
         int dishCount = 1;
-        while ((resultSet.getInt("idorder") == order.getId()) && !(resultSet.isLast())) {
-            resultSet.next();
-            if (resultSet.getInt("iddish") == idDish) {
-                dishCount++;
+        while (resultSet.next()) {
+            if (resultSet.getInt("idorder") == order.getId()) {
+                if (resultSet.getInt("iddish") == idDish) {
+                    dishCount++;
+                } else {
+                    dishes.put(idDish, dishCount);
+                    idDish = resultSet.getInt("iddish");
+                    dishCount = 1;
+                }
             } else {
-                dishes.put(idDish, dishCount);
-                idDish = resultSet.getInt("iddish");
-                dishCount = 1;
+                resultSet.previous();
+                break;
             }
         }
         dishes.put(idDish, dishCount);
         order.setDishes(dishes);
-        resultSet.previous();
 
         return order;
     }
