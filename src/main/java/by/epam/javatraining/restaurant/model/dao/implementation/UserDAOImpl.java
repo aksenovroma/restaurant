@@ -22,7 +22,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     public static final String SQL_INSERT_USER_ROLE = "insert into user_role (iduser, role) values (last_insert_id(), ?);";
 
-    public static final String SQL_DELETE_USER = "DELETE FROM user WHERE login = ?;";
+    public static final String SQL_DELETE_USER = "DELETE FROM user WHERE iduser = ?;";
 
     public static final String SQL_UPDATE_USER = "UPDATE user SET name=?, login=?, password=?, photo=? WHERE iduser= ?;";
 
@@ -69,8 +69,8 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     }
 
     @Override
-    public void delete(String login) throws UserDAOException {
-            updateStatement(SQL_DELETE_USER, "Deleting user failed, no rows affected.", login);
+    public void delete(int idUser) throws UserDAOException {
+            updateStatement(SQL_DELETE_USER, "Deleting user failed, no rows affected.", idUser);
     }
 
     @Override

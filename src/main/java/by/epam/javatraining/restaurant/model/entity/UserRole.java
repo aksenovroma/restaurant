@@ -1,7 +1,7 @@
 package by.epam.javatraining.restaurant.model.entity;
 
 public enum UserRole {
-    CLIENT("client"), WAITER("waiter"), ADMIN("admin");
+    CLIENT("client"), COURIER("courier"), ADMIN("admin");
 
     private String role;
 

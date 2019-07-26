@@ -8,7 +8,7 @@ import java.util.List;
 public interface DAO <T extends Entity> {
     void insert(T entity) throws DAOException;
 
-    void delete(String login) throws DAOException;
+    void delete(int idEntity) throws DAOException;
 
     void update(int idEntity, T entity) throws DAOException;
 

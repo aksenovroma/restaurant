@@ -22,7 +22,7 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
 
     public static final String SQL_INSERT_DISH_CATEGORY = "insert into dish_category (iddish, category) values (last_insert_id(), ?);";
 
-    public static final String SQL_DELETE_DISH = "DELETE FROM dish WHERE name = ?;";
+    public static final String SQL_DELETE_DISH = "DELETE FROM dish WHERE iddish = ?;";
 
     public static final String SQL_UPDATE_DISH = "UPDATE dish SET name=?, price=?, weight=?, photo=?, description=? WHERE iddish= ?;";
 
@@ -73,8 +73,8 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
     }
 
     @Override
-    public void delete(String name) throws DishDAOException {
-        updateStatement(SQL_DELETE_DISH, "Couldn't delete dish", name);
+    public void delete(int idDish) throws DishDAOException {
+        updateStatement(SQL_DELETE_DISH, "Couldn't delete dish", idDish);
     }
 
     @Override
