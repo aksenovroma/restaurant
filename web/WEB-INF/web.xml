@@ -4,6 +4,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <servlet>
+        <servlet-name>Restaurant</servlet-name>
+        <servlet-class>by.epam.javatraining.restaurant.controller.Controller</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Restaurant</servlet-name>
+        <url-pattern>/restaurant</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>Encoding</filter-name>
         <filter-class>by.epam.javatraining.restaurant.filter.CharsetFilter</filter-class>
