@@ -1,0 +1,74 @@
+.btn_menu {
+    margin-top: 170px;
+    color: #fff; /* цвет текста */
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    background: rgb(133, 181, 165); /* фон кнопки */
+    padding: .7em 1.5em;
+    font-size: 40px;
+    height: 100px;
+    width: 300px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+.bg_menu {
+    background-image: url("../view/image/background.jpg");
+}
+
+.header {
+    position: fixed; /* Фиксированное положение */
+    left: 0; top: 0; /* Левый нижний угол */
+    background: #73b592; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    width: 100%; /* Ширина слоя */
+    height: 80px;
+}
+.header_title {
+    position: fixed;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    color: #fff;
+    left: 0;
+}
+
+.header_welcome_user {
+    position: fixed;
+    margin-bottom: 30px;
+    margin-right: 15px;
+    color: #fff;
+    right: 0;
+}
+
+.header_command {
+    position: fixed;
+    margin-top: 50px;
+    margin-right: 15px;
+    color: #fff;
+    right: 0;
+}
+
+.header_sign_in {
+    color:beige;
+}
+
+.header_sign_up {
+    color: beige;
+}
+
+.header_sign_out {
+    color: white;
+}
+
+.header_name {
+    color: white;
+}
+
+.footer {
+    position: fixed;
+    left: 0; bottom: 0;
+    padding: 10px;
+    background: #73b592;
+    color: #fff;
+    width: 100%;
+}
