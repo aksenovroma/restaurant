@@ -71,4 +71,9 @@
     background: #73b592;
     color: #fff;
     width: 100%;
+    text-align: center;
+}
+
+.footer_link {
+    color: black;
 }

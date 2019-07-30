@@ -18,24 +18,27 @@ import java.util.List;
 import static by.epam.javatraining.restaurant.model.dao.DAOUtil.prepareStatement;
 
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
-    public static final String SQL_INSERT_USER = "insert into user (name, login, password, photo) values (?, ?, ?, ?);";
+    private static final String SQL_INSERT_USER = "insert into user (name, login, password, photo) values (?, ?, ?, ?);";
 
-    public static final String SQL_INSERT_USER_ROLE = "insert into user_role (iduser, role) values (last_insert_id(), ?);";
+    private static final String SQL_INSERT_USER_ROLE = "insert into user_role (iduser, role) values (last_insert_id(), ?);";
 
-    public static final String SQL_DELETE_USER = "DELETE FROM user WHERE iduser = ?;";
+    private static final String SQL_DELETE_USER = "DELETE FROM user WHERE iduser = ?;";
 
-    public static final String SQL_UPDATE_USER = "UPDATE user SET name=?, login=?, password=?, photo=? WHERE iduser= ?;";
+    private static final String SQL_UPDATE_USER = "UPDATE user SET name=?, login=?, password=?, photo=? WHERE iduser= ?;";
 
-    public static final String SQL_UPDATE_USER_ROLE = "UPDATE user_role SET role=? WHERE iduser = ?;";
+    private static final String SQL_UPDATE_USER_ROLE = "UPDATE user_role SET role=? WHERE iduser = ?;";
 
-    public static final String SQL_GET_USER_BY_ID = "SELECT user.iduser, name, login, password, photo, user_role.role " +
+    private static final String SQL_GET_USER_BY_ID = "SELECT user.iduser, name, login, password, photo, user_role.role " +
             "FROM user INNER JOIN user_role ON user.iduser = user_role.iduser WHERE user.iduser = ?";
 
-    public static final String SQL_GET_USER_BY_LOGIN = "SELECT user.iduser, name, login, password, photo, user_role.role " +
+    private static final String SQL_GET_USER_BY_LOGIN = "SELECT user.iduser, name, login, password, photo, user_role.role " +
             "FROM user INNER JOIN user_role ON user.iduser = user_role.iduser WHERE user.login = ?;";
 
-    public static final String SQL_GET_ALL_USERS = "SELECT user.iduser, name, login, password, photo, user_role.role " +
+    private static final String SQL_GET_ALL_USERS = "SELECT user.iduser, name, login, password, photo, user_role.role " +
             "FROM user INNER JOIN user_role ON user.iduser = user_role.iduser;";
+
+    private static final String SQL_EXIST_LOGIN =
+            "SELECT iduser FROM user WHERE login = ?";
 
     @Override
     public void insert(Entity entity) throws UserDAOException {
@@ -141,6 +144,25 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     @Override
     public User getByLogin(String login) throws UserDAOException{
         return get(SQL_GET_USER_BY_LOGIN, login);
+    }
+
+    @Override
+    public boolean existLogin(String login) throws UserDAOException{
+        boolean exist;
+
+        Connection connection = getConnection();
+
+        try (
+                PreparedStatement statement = prepareStatement(connection, SQL_EXIST_LOGIN, false, login);
+                ResultSet resultSet = statement.executeQuery()) {
+            exist = resultSet.next();
+        } catch (SQLException e) {
+            throw new UserDAOException(e);
+        } finally {
+            returnConnection(connection);
+        }
+
+        return exist;
     }
 
     private void updateStatement(String sql, String exceptionMessage, Object... values) throws UserDAOException{

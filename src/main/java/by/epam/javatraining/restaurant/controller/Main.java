@@ -38,8 +38,7 @@ public class Main {
             Date date = new Date();
 
             Order order = new Order(880, 230, map);
-
-            orderDAO.update(28, order);
+            System.out.println(userDAO.existLogin("romashka@mail.ru"));
 
         } catch (DAOException e) {
             e.printStackTrace();

@@ -12,6 +12,7 @@ public class CommandManager {
 
     static {
         commandMap = new HashMap<>();
+        commandMap.put(CommandType.SIGN_UP, new SignUpCommand());
     }
 
     public static Command getCommand(String commandName) {

@@ -16,16 +16,18 @@
             position: center;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../../js/loginValidation.js"></script>
 </head>
 <body>
 
 <%@include file="header.jsp"%>
 
 <div id="register">
-    <form method="post" action="${pageContext.request.contextPath}/restaurant">
+    <form id="form_id" method="post" action="${pageContext.request.contextPath}/restaurant" onsubmit="javascript:return validate('form_id','login');">
         <input type="hidden" name="command" value="sign_up"/>
         <h1 align="center">Registration</h1><br>
-        <table cellspacing="5" cellpadding="5" align="center">
+        <table cellspacing="6" cellpadding="6" align="center">
             <tr>
                 <td>
                     <input type="text" required placeholder="name" name="name">
@@ -33,7 +35,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" required placeholder="login" name="login">
+                    <input type="text" required placeholder="e-main" name="login">
                 </td>
             </tr>
             <tr>

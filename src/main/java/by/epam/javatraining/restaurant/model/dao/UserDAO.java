@@ -9,4 +9,6 @@ public interface UserDAO extends DAO{
     User getByLogin(String login) throws UserDAOException;
 
     void updateUserRole(int idUser, UserRole userRole) throws UserDAOException;
+
+    boolean existLogin(String login) throws UserDAOException;
 }

@@ -1,10 +1,14 @@
 package by.epam.javatraining.restaurant.model.dao.poolconnection;
 
+import by.epam.javatraining.restaurant.util.Configuration;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static by.epam.javatraining.restaurant.util.Configuration.*;
 
 public class JdbcConnectionPool {
 
@@ -21,16 +25,17 @@ public class JdbcConnectionPool {
     }
 
     private synchronized boolean checkIfConnectionPoolIsFull() {
-        final int MAX_POOL_SIZE = Configuration.getInstance().DB_MAX_CONNECTIONS;
+        final int MAX_POOL_SIZE = Integer.valueOf(Configuration.getProp(DB_MAX_CONNECTIONS));
 
         return availableConnections.size() >= MAX_POOL_SIZE;
     }
 
     private Connection createNewConnectionForPool() {
-        Configuration config = Configuration.getInstance();
         try {
-            Class.forName(config.DB_DRIVER);
-            return DriverManager.getConnection(config.DB_URL, config.DB_USER_NAME, config.DB_PASSWORD);
+            Class.forName(Configuration.getProp(DB_DRIVER));
+            return DriverManager.getConnection(Configuration.getProp(DB_URL),
+                    Configuration.getProp(DB_USER_NAME),
+                    Configuration.getProp(DB_PASSWORD));
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

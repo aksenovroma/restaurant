@@ -6,8 +6,8 @@ public class User extends Entity{
     private String name;
     private String login;
     private String password;
-    private String photo;
-    private UserRole userRole;
+    private String photo = "https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png";
+    private UserRole userRole = UserRole.CLIENT;
 
     public User() {}
 
@@ -17,6 +17,12 @@ public class User extends Entity{
         this.password = password;
         this.photo = photo;
         this.userRole = userRole;
+    }
+
+    public User(String name, String login, String password) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
     }
 
     public User(int id, String name, String login, String password, String photo, UserRole userRole) {
