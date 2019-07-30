@@ -84,12 +84,12 @@
                 <table>
                     <tr>
                         <td>
-                            <h4 id="menu_category"><c:out value="${dish.category}"/></h4>
+                            <h4 id="menu_category"><c:out value="${dish.dishCategory}"/></h4>
                         </td>
                     </tr>
                     <tr align="center">
                         <td>
-                            <img id="menu_image" src="${dish.imagePath}" alt="dish image">
+                            <img id="menu_image" src="${dish.photo}" alt="dish image">
 
                             <h4><c:out value="${dish.name}"/></h4>
 
@@ -107,19 +107,10 @@
                             <c:if test="${sessionScope.username != null}">
                                 <c:if test="${sessionScope.role == 'CLIENT'}">
                                     <label>
-                                        <button type="submit" name="add_action" value="${dish.name}">
-                                            <img src="${pageContext.request.contextPath}/view/image/plus.png" alt="plus"/>
-                                        </button>
+                                        <button type="submit" name="add_action" value="${dish.name}"></button>
 
-                                        <c:forEach items="${sessionScope.portionCount}" var="portion">
-                                            <c:if test="${dish.name == portion.key}">
-                                                <c:out value="${portion.value}"/>
-                                            </c:if>
-                                        </c:forEach>
 
-                                        <button type="submit" name="remove_action" value="${dish.name}">
-                                            <img src="${pageContext.request.contextPath}/view/image/minus.png" alt="minus"/>
-                                        </button>
+                                        <button type="submit" name="remove_action" value="${dish.name}"></button>
                                     </label>
                                 </c:if>
                             </c:if>

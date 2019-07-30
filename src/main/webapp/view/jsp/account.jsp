@@ -48,6 +48,7 @@
         <tr id="account_title">
             <td>
                 Account information
+                <img id="menu_image" src="${sessionScope.userphoto}" alt="user photo">
             </td>
         </tr>
         <tr>

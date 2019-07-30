@@ -9,18 +9,13 @@
 <html>
 <head>
     <title>Sign In</title>
-    <style type="text/css">
-        #login {
-            margin-top: 100px;
-            position: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
 </head>
 <body>
 
 <%@include file="header.jsp"%>
 
-<div id="login">
+<div class="sign_in">
     <h1 align="center">Login</h1><br>
     <form method="post" action="${pageContext.request.contextPath}/restaurant">
         <input type="hidden" name="command" value="sign_in"/>

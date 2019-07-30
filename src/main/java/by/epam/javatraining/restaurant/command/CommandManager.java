@@ -13,6 +13,10 @@ public class CommandManager {
     static {
         commandMap = new HashMap<>();
         commandMap.put(CommandType.SIGN_UP, new SignUpCommand());
+        commandMap.put(CommandType.SIGN_IN, new SignInCommand());
+        commandMap.put(CommandType.SIGN_OUT, new SignOutCommand());
+        commandMap.put(CommandType.ACCOUNT_ACTION, new AccountActionCommand());
+        commandMap.put(CommandType.SHOW_MENU, new ShowMenuCommand());
     }
 
     public static Command getCommand(String commandName) {

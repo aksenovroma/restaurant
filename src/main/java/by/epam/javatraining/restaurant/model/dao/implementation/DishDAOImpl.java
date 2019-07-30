@@ -38,7 +38,8 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
 
     public static final String SQL_GET_ALL_DISHES = "SELECT dish.iddish, name, price, weight, photo," +
             "description, dish_category.category FROM dish INNER JOIN dish_category " +
-            "ON dish.iddish = dish_category.iddish";
+            "ON dish.iddish = dish_category.iddish " +
+            "ORDER BY dish_category.category";
 
     @Override
     public void insert(Entity entity) throws DishDAOException {

@@ -10,12 +10,7 @@
 <html>
 <head>
     <title>Sign Up</title>
-    <style type="text/css">
-        #register {
-            margin-top: 100px;
-            position: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="../../js/loginValidation.js"></script>
 </head>
@@ -23,24 +18,30 @@
 
 <%@include file="header.jsp"%>
 
-<div id="register">
+<div class="sign_up">
     <form id="form_id" method="post" action="${pageContext.request.contextPath}/restaurant" onsubmit="javascript:return validate('form_id','login');">
         <input type="hidden" name="command" value="sign_up"/>
-        <h1 align="center">Registration</h1><br>
+        <h1 class="sign_up_title">Registration</h1><br>
         <table cellspacing="6" cellpadding="6" align="center">
             <tr>
                 <td>
-                    <input type="text" required placeholder="name" name="name">
+                    <label>
+                        <input type="text" required placeholder="name" name="name">
+                    </label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" required placeholder="e-main" name="login">
+                    <label>
+                        <input type="text" required placeholder="e-main" name="login">
+                    </label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="password" required placeholder="password" name="password">
+                    <label>
+                        <input type="password" required placeholder="password" name="password">
+                    </label>
                 </td>
             </tr>
             <tr>
