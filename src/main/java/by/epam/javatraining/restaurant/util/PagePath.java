@@ -7,4 +7,5 @@ public class PagePath {
     public static final String ERROR = "view/jsp/error.jsp";
     public static final String MENU = "view/jsp/menu.jsp";
     public static final String ACCOUNT = "view/jsp/account.jsp";
+    public static final String RESERVATION = "view/jsp/reservation.jsp";
 }

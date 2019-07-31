@@ -8,6 +8,7 @@ import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 
 public class ShowMenuCommand implements Command {
@@ -20,6 +21,11 @@ public class ShowMenuCommand implements Command {
         try {
             List dishes = dishDAO.getAll();
             req.getSession().setAttribute("dishes", dishes);
+            HashMap<Integer, Integer> orderDishes = new HashMap<>();
+            for (Object dish : dishes) {
+                orderDishes.put(((Dish) dish).getId(), 0);
+            }
+            req.getSession().setAttribute("orderDishes", orderDishes);
         } catch (DAOException e) {
             LOGGER.error(e);
         }

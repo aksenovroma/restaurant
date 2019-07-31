@@ -71,6 +71,22 @@
             cursor: pointer;
             border-radius: 50%;
         }
+        #dish_count{
+            display: inline-block;
+            font-size: 30px;
+            width: 34px;
+            height: 34px;
+        }
+
+        #btn_clear{
+            margin-bottom: 30px;
+            color: #fff; /* цвет текста */
+            text-decoration: none; /* убирать подчёркивание у ссылок */
+            user-select: none; /* убирать выделение текста */
+            background: rgb(143, 181, 148); /* фон кнопки */
+            padding: .7em 1.5em;
+            font-size: 30px;
+        }
 
     </style>
 </head>
@@ -88,9 +104,12 @@
 
         <c:if test="${sessionScope.username != null}">
             <c:if test="${sessionScope.role == 'client'}">
-                <label>
+                <div>
                     <input id="btn_reservation" type="submit" name="res_action" value="Reservation">
-                </label>
+                </div>
+                <div>
+                    <input id="btn_clear" type="submit" name="clr_action" value="Clear">
+                </div>
             </c:if>
         </c:if>
 
@@ -125,12 +144,17 @@
                         <td>
                             <c:if test="${sessionScope.username != null}">
                                 <c:if test="${sessionScope.role == 'client'}">
-                                    <label>
-                                        <button id="btn_minus" type="submit" name="add_action" value="${dish.id}"></button>
-
-
-                                        <button id="btn_plus" type="submit" name="remove_action" value="${dish.id}"></button>
-                                    </label>
+                                    <div>
+                                        <button id="btn_minus" type="submit" name="remove_action" value="${dish.id}"></button>
+                                    </div>
+                                        <c:forEach items="${sessionScope.orderDishes}" var="portion">
+                                            <c:if test="${dish.id == portion.key}">
+                                                <div id="dish_count"><c:out value="${portion.value}"/></div>
+                                            </c:if>
+                                        </c:forEach>
+                                    <div>
+                                        <button id="btn_plus" type="submit" name="add_action" value="${dish.id}"></button>
+                                    </div>
                                 </c:if>
                             </c:if>
                         </td>

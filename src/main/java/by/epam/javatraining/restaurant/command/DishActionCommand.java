@@ -1,35 +1,27 @@
 package by.epam.javatraining.restaurant.command;
 
-import by.epam.javatraining.restaurant.model.dao.DishDAO;
-import by.epam.javatraining.restaurant.model.dao.OrderDAO;
-import by.epam.javatraining.restaurant.model.dao.UserDAO;
-import by.epam.javatraining.restaurant.model.dao.implementation.DishDAOImpl;
-import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
-import by.epam.javatraining.restaurant.model.dao.implementation.UserDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.Order;
-import by.epam.javatraining.restaurant.model.entity.OrderState;
-import by.epam.javatraining.restaurant.model.entity.User;
-import by.epam.javatraining.restaurant.model.exception.DAOException;
 import by.epam.javatraining.restaurant.util.PagePath;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DishActionCommand implements Command {
-
+    private HashMap<Integer, Integer> orderDishes;
 
     @Override
     public String execute(HttpServletRequest req) {
+        String pagePath = PagePath.MENU;
         if (req.getSession().getAttribute("orderDishes") != null) {
-            HashMap<Integer, Integer> orderDishes = (HashMap) req.getSession().getAttribute("orderDishes");
+            orderDishes = (HashMap) req.getSession().getAttribute("orderDishes");
 
             String addDish = req.getParameter("add_action");
             String removeDish = req.getParameter("remove_action");
             String reservation = req.getParameter("res_action");
+            String clear = req.getParameter("clr_action");
 
             if (addDish != null) {
                 for (Map.Entry<Integer, Integer> entry : orderDishes.entrySet()) {
@@ -39,6 +31,8 @@ public class DishActionCommand implements Command {
                         entry.setValue(count);
                     }
                 }
+                req.getSession().setAttribute("orderDishes", orderDishes);
+                req.getSession().setAttribute("add_action", null);
             } else if (removeDish != null) {
                 for (Map.Entry<Integer, Integer> entry : orderDishes.entrySet()) {
                     if (entry.getKey().equals(Integer.valueOf(removeDish)) && entry.getValue() > 0) {
@@ -47,90 +41,41 @@ public class DishActionCommand implements Command {
                         entry.setValue(count);
                     }
                 }
+                req.getSession().setAttribute("orderDishes", orderDishes);
+                req.getSession().setAttribute("remove_action", null);
             } else if (reservation != null) {
-                return PagePath.
-            }
-
-        } else {
-            List dishes = (List) req.getSession().getAttribute("dishes");
-            Map <Integer, Integer> orderDishes = new HashMap<>();
-            for (Object dish : dishes) {
-                orderDishes.put(((Dish) dish).getId(), 0);
-            }
-            req.getSession().setAttribute("orderDishes", orderDishes);
-        }
-
-        Map  = (HashMap) req.getSession().getAttribute("portionCount");
-
-        if (portionCount == null) {
-            portionCount = new HashMap<>();
-            req.getSession().setAttribute("portionCount", portionCount);
-        }
-
-
-        if (addDish != null) {
-            if (portionCount == null) {
-                portionCount = new HashMap<>();
-            }
-            if (portionCount.containsKey(addDish)) {
-                Integer count = (Integer) portionCount.get(addDish);
-                count++;
-                portionCount.put(addDish, count);
-            } else {
-                portionCount.put(addDish, 1);
-            }
-            req.setAttribute("portionCount", portionCount);
-
-        }
-        if (removeDish != null) {
-            if (portionCount == null) {
-                portionCount = new HashMap<>();
-            }
-            if (portionCount.containsKey(removeDish)) {
-                Integer count = (Integer) portionCount.get(removeDish);
-                if (count > 1) {
-                    count--;
-                    portionCount.put(removeDish, count);
+                req.getSession().setAttribute("res_action", null);
+                if (!isEmptyOrder()) {
+                    Order order = new Order()
+                    pagePath = PagePath.RESERVATION;
+                    return pagePath;
                 } else {
-                    portionCount.remove(removeDish);
+                    return pagePath;
                 }
-            }
-            req.setAttribute("portionCount", portionCount);
-        }
-        if (reservation != null) {
-            Map<String, Integer> portions = (HashMap<String, Integer>) req.getSession().getAttribute("portionCount");
-            if (portions == null) {
-                portions = new HashMap<>();
-            }
-
-            if (!portions.isEmpty()) {
-                DishDAO dishDAO = new DishDAOImpl();
-                Map<Dish, Integer> dishes = new HashMap<>();
-                for (Map.Entry<String, Integer> entry : portions.entrySet()) {
-                    dishes.put(dishDAO.get(entry.getKey()), entry.getValue());
+            } else if (clear != null) {
+                List dishes = (List) req.getSession().getAttribute("dishes");
+                HashMap<Integer, Integer> orderDishes = new HashMap<>();
+                if (dishes != null) {
+                    for (Object dish : dishes) {
+                        orderDishes.put(((Dish) dish).getId(), 0);
+                    }
+                    req.getSession().setAttribute("orderDishes", orderDishes);
                 }
-
-                UserDAO userDAO = new UserDAOImpl();
-                OrderDAO orderDAO = new OrderDAOImpl();
-                Manager manager = new OrderManager();
-
-                Integer iduser = (Integer)req.getSession().getAttribute("iduser");
-                User client = userDAO.getById(iduser);
-                double price = manager.totalPrice(dishes);
-                double weight = manager.totalWeight(dishes);
-                Date date = new Date();
-
-                Order order = new Order(dishes, client, null, date.toString(), price, weight, OrderState.NOT_PAID);
-                req.getSession().setAttribute("order", order);
-                try {
-                    orderDAO.add(order);
-                } catch (DAOException e) {
-                    e.printStackTrace();
-                }
-
-                return PagePath.ACCOUNT;
+                req.getSession().setAttribute("clr_action", null);
+                return pagePath;
             }
         }
-        return PagePath.MENU;
+        return pagePath;
+    }
+
+    private boolean isEmptyOrder() {
+        boolean orderEmpty = true;
+        for (Map.Entry<Integer, Integer> entry : orderDishes.entrySet()) {
+            if (entry.getValue() > 0) {
+                orderEmpty = false;
+                break;
+            }
+        }
+        return orderEmpty;
     }
 }
