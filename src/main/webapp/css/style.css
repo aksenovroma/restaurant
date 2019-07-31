@@ -91,3 +91,9 @@
     margin-top: 100px;
     position: center;
 }
+
+input[type="button"] {
+    background: url(../view/image/plus.png) no-repeat top;
+    width: 392px;
+    height: 400px;
+}

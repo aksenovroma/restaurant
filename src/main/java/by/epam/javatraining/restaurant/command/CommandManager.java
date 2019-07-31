@@ -17,6 +17,7 @@ public class CommandManager {
         commandMap.put(CommandType.SIGN_OUT, new SignOutCommand());
         commandMap.put(CommandType.ACCOUNT_ACTION, new AccountActionCommand());
         commandMap.put(CommandType.SHOW_MENU, new ShowMenuCommand());
+        commandMap.put(CommandType.DISH_ACTION, new DishActionCommand());
     }
 
     public static Command getCommand(String commandName) {

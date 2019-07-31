@@ -53,6 +53,25 @@
             padding: .7em 1.5em;
             font-size: 30px;
         }
+        #btn_plus{
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            background-image: url(https://img.icons8.com/dotty/30/000000/plus.png);
+            background-size: 30px, 30px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        #btn_minus{
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            background-image: url(https://img.icons8.com/dotty/30/000000/minus.png);
+            background-size: 30px, 30px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
     </style>
 </head>
 <body>
@@ -68,7 +87,7 @@
         <c:set var="dishes" value="${sessionScope.dishes}"/>
 
         <c:if test="${sessionScope.username != null}">
-            <c:if test="${sessionScope.role == 'CLIENT'}">
+            <c:if test="${sessionScope.role == 'client'}">
                 <label>
                     <input id="btn_reservation" type="submit" name="res_action" value="Reservation">
                 </label>
@@ -105,12 +124,12 @@
                     <tr align="center">
                         <td>
                             <c:if test="${sessionScope.username != null}">
-                                <c:if test="${sessionScope.role == 'CLIENT'}">
+                                <c:if test="${sessionScope.role == 'client'}">
                                     <label>
-                                        <button type="submit" name="add_action" value="${dish.name}"></button>
+                                        <button id="btn_minus" type="submit" name="add_action" value="${dish.id}"></button>
 
 
-                                        <button type="submit" name="remove_action" value="${dish.name}"></button>
+                                        <button id="btn_plus" type="submit" name="remove_action" value="${dish.id}"></button>
                                     </label>
                                 </c:if>
                             </c:if>
