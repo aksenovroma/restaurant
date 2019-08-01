@@ -2,6 +2,7 @@ package by.epam.javatraining.restaurant.command;
 
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.Order;
+import by.epam.javatraining.restaurant.model.logic.OrderManager;
 import by.epam.javatraining.restaurant.util.PagePath;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,20 @@ public class DishActionCommand implements Command {
             } else if (reservation != null) {
                 req.getSession().setAttribute("res_action", null);
                 if (!isEmptyOrder()) {
-                    Order order = new Order()
+                    Order order = new Order();
+                    OrderManager orderManager = new OrderManager();
+
+                    Map<Integer, Integer> dishes = new HashMap<>();
+                    for (Map.Entry<Integer, Integer> entry : orderDishes.entrySet()) {
+                        if (entry.getValue() > 0) {
+                            dishes.put(entry.getKey(), entry.getValue());
+                        }
+                    }
+
+                    order.setDishes(dishes);
+                    order.setTotalPrice(orderManager.totalPrice(order, req));
+                    order.setTotalWeight(orderManager.totalWeight(order, req));
+                    req.getSession().setAttribute("order", order);
                     pagePath = PagePath.RESERVATION;
                     return pagePath;
                 } else {

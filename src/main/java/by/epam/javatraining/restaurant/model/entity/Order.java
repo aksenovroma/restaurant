@@ -5,9 +5,9 @@ import java.util.Objects;
 
 public class Order extends Entity{
     private int idClient;
-    private int idCourier;
+    private int idCourier = 1;
     private String time;
-    private OrderState orderState;
+    private OrderState orderState = OrderState.NOT_ACCEPTED;
     private double totalPrice;
     private double totalWeight;
     private String address;
@@ -35,9 +35,7 @@ public class Order extends Entity{
 
     public Order(int idClient, String time, double totalPrice, double totalWeight, String address, Map<Integer, Integer> dishes) {
         this.idClient = idClient;
-        idCourier = 1;
         this.time = time;
-        this.orderState = OrderState.NOT_ACCEPTED;
         this.totalPrice = totalPrice;
         this.totalWeight = totalWeight;
         this.address = address;
@@ -48,7 +46,6 @@ public class Order extends Entity{
         this.idClient = idClient;
         this.idCourier = idCourier;
         this.time = time;
-        this.orderState = OrderState.NOT_ACCEPTED;
         this.totalPrice = totalPrice;
         this.totalWeight = totalWeight;
         this.address = address;

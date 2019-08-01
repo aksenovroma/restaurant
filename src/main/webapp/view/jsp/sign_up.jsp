@@ -12,7 +12,7 @@
     <title>Sign Up</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="../../js/loginValidation.js"></script>
+    <script src="../../js/emailValidation.js"></script>
 </head>
 <body>
 

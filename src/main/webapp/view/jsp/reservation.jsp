@@ -10,52 +10,49 @@
 <head>
     <title>Reservation</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
-    <style type="text/css">
-        #res_btn_checkout{
-            margin-top: 8%;
-            color: #fff;
-            text-decoration: none;
-            user-select: none;
-            background: rgb(133, 181, 165);
-            padding: .7em 1.5em;
-            font-size: 40px;
-            height: 100px;
-            width: 300px;
-            position: relative;
-            left: 50%;
-            transform: translate(-50%, 0);
-        }
-        #res_input_address{
-            position: absolute;
-            margin-top: 15px;
-            left: 50%;
-            transform: translate(-50%, 0);
-        }
-    </style>
 </head>
-<body>
+<body class="bg_menu">
     <%@include file="header.jsp"%>
 
-
-    <form id="form_id" method="post" action="${pageContext.request.contextPath}/restaurant">
+    <form method="post" action="${pageContext.request.contextPath}/restaurant">
+        <input type="hidden" name="command" value="check_out"/>
             <div>
                 <div>
-                    <button id="res_btn_checkout" type="submit" name="checkout">Сheckout</button>
+                    <button class="res_btn_checkout" type="submit" name="check_out">Сheckout</button>
                 </div>
                 <div>
                     <label>
-                        <input id="res_input_address" type="text" required placeholder=" address" name="address">
+                        <input class="res_input_address" type="text" required placeholder="address" name="address">
                     </label>
+                </div>
+                <div class="res_order">
+                    <div class="res_order_title">
+                        Ваш заказ
+                    </div>
+                    <div class="res_order_dish">
+                        <c:forEach items="${sessionScope.order.dishes}" var="orderDish">
+                            <c:forEach items="${sessionScope.dishes}" var="dish">
+                                <c:if test="${orderDish.key == dish.id}">
+                                    <c:out value="${dish.name}"/>
+                                </c:if>
+                            </c:forEach>х
+                            <c:out value="${orderDish.value}"/><br>
+                        </c:forEach>
+                    </div>
+                    <div class="res_order_detail">
+                        <div class="res_order_weight">
+                            Weight : <c:out value="${sessionScope.order.totalWeight}"/>
+                        </div>
+                        <div class="res_order_price">
+                            Price : <c:out value="${sessionScope.order.totalPrice}"/>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div>
-                        Ваш заказ:
-                    </div>
-                    <div>
-                        <c:forEach items="${sessionScope.orderDish}" var="dish">
-                            <c:out value="${dish.key}"/> х
-                            <c:out value="${dish.value}"/><br>
-                        </c:forEach>
+                        <button class="res_btn_edit" type="button"
+                                onclick="location.href='${pageContext.request.contextPath}/view/jsp/menu.jsp'">Edit
+                        </button>
                     </div>
                 </div>
             </div>

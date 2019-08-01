@@ -177,3 +177,73 @@
     padding: .7em 1.5em;
     font-size: 30px;
 }
+
+.res_btn_checkout{
+    margin-top: 8%;
+    color: #fff;
+    text-decoration: none;
+    user-select: none;
+    background: rgb(133, 181, 165);
+    padding: .7em 1.5em;
+    font-size: 40px;
+    height: 100px;
+    width: 300px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.res_input_address{
+    position: absolute;
+    margin-top: 5px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 300px;
+    height: 30px;
+    text-align: center;
+}
+.res_order{
+    position: absolute;
+    margin-top: 100px;
+    width: 300px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    text-align: center;
+    background-color: white;
+    padding: 5px 0;
+}
+.res_order_detail{
+    margin-top: 10px;
+}
+.res_order_title{
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+}
+.res_order_price{
+    font-style: italic;
+    font-weight: bold;
+}
+.res_order_weight{
+    font-style: italic;
+    font-weight: bold;
+}
+.res_order_dish{
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.res_btn_edit{
+    margin-top: 40px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    user-select: none;
+    background: rgb(133, 181, 165);
+    font-size: 15px;
+    height: 30px;
+    width: 300px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
