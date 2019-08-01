@@ -12,7 +12,7 @@
     left: 50%;
     transform: translate(-50%, 0);
 }
-.bg_menu {
+.bg{
     background-image: url("../view/image/background.jpg");
 }
 
@@ -246,4 +246,44 @@
     position: relative;
     left: 50%;
     transform: translate(-50%, 0);
+}
+
+.account_user_image {
+    position: center;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+.account_info {
+    position: absolute;
+    margin-top: 100px;
+    width: 300px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    text-align: center;
+    padding: 5px 0;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.account_info_title{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.account_info_log_pas{
+    font-weight: bold;
+    padding: 7px;
+}
+
+.account_btn_show_order{
+    position: absolute;
+    margin-top: 100px;
+    width: 300px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    text-align: center;
+    background-color: white;
+    padding: 5px 0;
 }

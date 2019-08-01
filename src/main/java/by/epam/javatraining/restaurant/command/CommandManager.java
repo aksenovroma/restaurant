@@ -5,7 +5,8 @@ import java.util.Map;
 
 public class CommandManager {
     public enum CommandType {
-        UNKNOWN, SIGN_IN, SIGN_UP, SIGN_OUT, SHOW_MENU, ACCOUNT_ACTION, DISH_ACTION, CHECK_OUT
+        UNKNOWN, SIGN_IN, SIGN_UP, SIGN_OUT, SHOW_MENU, ACCOUNT_ACTION, DISH_ACTION, CHECK_OUT, SHOW_ORDER,
+        REMOVE_ORDER
     }
 
     private static final Map<CommandType, Command> commandMap;
@@ -19,6 +20,8 @@ public class CommandManager {
         commandMap.put(CommandType.SHOW_MENU, new ShowMenuCommand());
         commandMap.put(CommandType.DISH_ACTION, new DishActionCommand());
         commandMap.put(CommandType.CHECK_OUT, new CheckOutCommand());
+        commandMap.put(CommandType.SHOW_ORDER, new ShowOrderCommand());
+        commandMap.put(CommandType.REMOVE_ORDER, new RemoveOrderCommand());
     }
 
     public static Command getCommand(String commandName) {

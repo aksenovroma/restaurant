@@ -13,7 +13,7 @@
     <title>Restaurant</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
   </head>
-  <body class="bg_menu">
+  <body class="bg">
   <%@include file="view/jsp/header.jsp"%>
 
   <form method="post" action="${pageContext.request.contextPath}/restaurant">

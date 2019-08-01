@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Menu</title>
+    <link rel="stylesheet" href="../../css/style.css" type="text/css">
     <style type="text/css">
         #menu {
             margin: 7% 20px;
@@ -97,24 +98,24 @@
 <form method="post" action="${pageContext.request.contextPath}/restaurant">
     <input type="hidden" name="command" value="dish_action"/>
 
-    <div id="menu">
-        <h1 id="menu_title">Menu</h1>
+    <div class="menu">
+        <h1 class="menu_title">Menu</h1>
 
         <c:set var="dishes" value="${sessionScope.dishes}"/>
 
         <c:if test="${sessionScope.username != null}">
             <c:if test="${sessionScope.role == 'client'}">
                 <div>
-                    <input id="btn_reservation" type="submit" name="res_action" value="Reservation">
+                    <input class="menu_btn_reservation" type="submit" name="res_action" value="Reservation">
                 </div>
                 <div>
-                    <input id="btn_clear" type="submit" name="clr_action" value="Clear">
+                    <input class="menu_btn_clear" type="submit" name="clr_action" value="Clear">
                 </div>
             </c:if>
         </c:if>
 
         <c:if test="${sessionScope.username == null}">
-            <div id="attention">Registration required for ordering</div>
+            <div class="menu_attention">Registration required for ordering</div>
         </c:if>
 
         <div>
@@ -122,12 +123,12 @@
                 <table>
                     <tr>
                         <td>
-                            <h4 id="menu_category"><c:out value="${dish.dishCategory}"/></h4>
+                            <h4 class="menu_dish_category"><c:out value="${dish.dishCategory}"/></h4>
                         </td>
                     </tr>
                     <tr align="center">
                         <td>
-                            <img id="menu_image" src="${dish.photo}" alt="dish image">
+                            <img class="menu_dish_image" src="${dish.photo}" alt="dish image">
 
                             <h4><c:out value="${dish.name}"/></h4>
 
@@ -145,7 +146,7 @@
                             <c:if test="${sessionScope.username != null}">
                                 <c:if test="${sessionScope.role == 'client'}">
                                     <div>
-                                        <button id="btn_minus" type="submit" name="remove_action" value="${dish.id}"></button>
+                                        <button class="menu_btn_minus" type="submit" name="remove_action" value="${dish.id}"></button>
                                     </div>
                                         <c:forEach items="${sessionScope.orderDishes}" var="portion">
                                             <c:if test="${dish.id == portion.key}">
@@ -153,7 +154,7 @@
                                             </c:if>
                                         </c:forEach>
                                     <div>
-                                        <button id="btn_plus" type="submit" name="add_action" value="${dish.id}"></button>
+                                        <button class="menu_btn_plus" type="submit" name="add_action" value="${dish.id}"></button>
                                     </div>
                                 </c:if>
                             </c:if>
