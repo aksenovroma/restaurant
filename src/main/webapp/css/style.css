@@ -287,3 +287,9 @@
     background-color: white;
     padding: 5px 0;
 }
+
+.client_orders{
+    float: left;
+    width: 300px;
+    margin: 1em;
+}

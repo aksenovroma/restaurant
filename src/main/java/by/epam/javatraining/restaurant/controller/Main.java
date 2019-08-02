@@ -38,7 +38,7 @@ public class Main {
             Date date = new Date();
 
             Order order = new Order(880, 230, map);
-            System.out.println(userDAO.existLogin("romashka@mail.ru"));
+            System.out.println(orderDAO.getAllById(13));
 
         } catch (DAOException e) {
             e.printStackTrace();

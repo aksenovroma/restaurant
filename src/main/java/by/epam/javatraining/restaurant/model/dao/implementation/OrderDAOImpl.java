@@ -167,6 +167,26 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
         return get(SQL_GET_ORDER, idClient);
     }
 
+    @Override
+    public List<Order> getAllById(int idClient) throws OrderDAOException{
+        List<Order> orders = new ArrayList<>();
+        Connection connection = getConnection();
+
+        try (PreparedStatement statement = prepareStatement(connection, SQL_GET_ORDER, false, idClient)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    orders.add(map(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            throw new OrderDAOException(e);
+        } finally {
+            returnConnection(connection);
+        }
+
+        return orders;
+    }
+
     private void updateStatement(String sql, String exceptionMessage, Object... values) throws OrderDAOException{
         Connection connection = getConnection();
 
