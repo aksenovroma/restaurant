@@ -1,9 +1,14 @@
 package by.epam.javatraining.restaurant.command;
 
+import by.epam.javatraining.restaurant.model.dao.DishDAO;
+import by.epam.javatraining.restaurant.model.dao.OrderDAO;
+import by.epam.javatraining.restaurant.model.dao.implementation.DishDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.Order;
+import by.epam.javatraining.restaurant.model.exception.DAOException;
 import by.epam.javatraining.restaurant.model.logic.OrderManager;
 import by.epam.javatraining.restaurant.util.PagePath;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -12,6 +17,8 @@ import java.util.Map;
 
 public class DishActionCommand implements Command {
     private HashMap<Integer, Integer> orderDishes;
+    private static final DishDAO dishDAO = new DishDAOImpl();
+    private static final Logger LOGGER = Logger.getRootLogger();
 
     @Override
     public String execute(HttpServletRequest req) {
@@ -22,6 +29,7 @@ public class DishActionCommand implements Command {
             String addDish = req.getParameter("add_action");
             String removeDish = req.getParameter("remove_action");
             String reservation = req.getParameter("res_action");
+            String removeDishFromMenu = req.getParameter("remove_dish_action");
             String clear = req.getParameter("clr_action");
 
             if (addDish != null) {
@@ -76,6 +84,14 @@ public class DishActionCommand implements Command {
                     req.getSession().setAttribute("orderDishes", orderDishes);
                 }
                 req.getSession().setAttribute("clr_action", null);
+                return pagePath;
+            } else if (removeDishFromMenu != null) {
+                try {
+                    dishDAO.delete(Integer.valueOf(removeDishFromMenu));
+                    req.getSession().setAttribute("dishes", dishDAO.getAll());
+                } catch (DAOException e) {
+                    LOGGER.error(e);
+                }
                 return pagePath;
             }
         }

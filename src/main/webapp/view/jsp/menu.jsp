@@ -12,6 +12,7 @@
 <head>
     <title>Menu</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <script src="../../js/redirectPage.js"></script>
 </head>
 <body class="bg">
 <div>
@@ -34,7 +35,9 @@
                 </c:if>
                 <c:if test="${sessionScope.role == 'admin'}">
                     <div>
-                        <button class="menu_btn_add" type="submit" name="add_action">Add new Dish</button>
+                        <a href="${pageContext.request.contextPath}/view/jsp/add_dish.jsp">
+                            <input class="menu_btn_add" type="button" value="Add new Dish"/>
+                        </a>
                     </div>
                 </c:if>
             </c:if>
@@ -52,7 +55,7 @@
                         <div class="menu_dish_name">
                             <c:out value="${dish.name}"/>
                         </div>
-                        <div class="menu_dish_description">
+                        <div class="menu_dish_description" title="${dish.description}">
                             <c:out value="${dish.description}"/>
                         </div>
                     </div>
@@ -83,7 +86,7 @@
                             </c:if>
                             <c:if test="${sessionScope.role == 'admin'}">
                                 <div>
-                                    <button class="client_orders_btn_remove" type="submit" value="remove_action">Remove</button>
+                                    <button class="client_orders_btn_remove" type="submit" name="remove_dish_action" value="${dish.id}">Remove</button>
                                 </div>
                             </c:if>
                         </c:if>

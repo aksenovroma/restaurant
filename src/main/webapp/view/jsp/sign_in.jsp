@@ -20,8 +20,8 @@
         <input type="hidden" name="command" value="sign_in"/>
         <div class="login-page">
             <div class="form">
-                    <input type="text" required placeholder="login" value="login"/>
-                    <input type="password" required placeholder="password" value="password"/>
+                    <input type="text" required placeholder="login" name="login"/>
+                    <input type="password" required placeholder="password" name="password"/>
                     <input type="submit" value="Sing In">
                     <p class="message">Not registered? <a href="sign_up.jsp">Create an account</a></p>
             </div>

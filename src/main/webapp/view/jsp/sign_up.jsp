@@ -14,7 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="../../js/emailValidation.js"></script>
 </head>
-<body>
+<body class="bg">
 
 <%@include file="header.jsp"%>
 
@@ -24,9 +24,9 @@
         <div class="login-page">
             <div class="form">
                 <form class="register-form">
-                    <input type="text" required placeholder="name" value="name"/>
-                    <input type="text" required placeholder="e-mail" value="login"/>
-                    <input type="password" required placeholder="password" value="password"/>
+                    <input type="text" required placeholder="name" name="name"/>
+                    <input type="text" required placeholder="e-mail" name="login"/>
+                    <input type="password" required placeholder="password" name="password"/>
                     <input type="submit" value="Sing Up">
                     <p class="message">Already registered? <a href="sign_in.jsp">Sign In</a></p>
                 </form>
