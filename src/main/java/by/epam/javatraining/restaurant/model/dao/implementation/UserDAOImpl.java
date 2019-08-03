@@ -5,7 +5,6 @@ import by.epam.javatraining.restaurant.model.dao.UserDAO;
 import by.epam.javatraining.restaurant.model.entity.Entity;
 import by.epam.javatraining.restaurant.model.entity.User;
 import by.epam.javatraining.restaurant.model.entity.UserRole;
-import by.epam.javatraining.restaurant.model.exception.DAOException;
 import by.epam.javatraining.restaurant.model.exception.UserDAOException;
 
 import java.sql.Connection;
@@ -39,6 +38,9 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     private static final String SQL_EXIST_LOGIN =
             "SELECT iduser FROM user WHERE login = ?";
+
+    private static final String SQL_GET_ROLE_BY_ID = "SELECT user_role.role " +
+            "FROM user INNER JOIN user_role ON user.iduser = user_role.iduser WHERE user.iduser = ?";
 
     @Override
     public void insert(Entity entity) throws UserDAOException {
@@ -134,6 +136,26 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         }
 
         return users;
+    }
+    @Override
+    public String getRoleById(int idUser) throws UserDAOException {
+        String role = null;
+
+        Connection connection = getConnection();
+
+        try (
+                PreparedStatement statement = prepareStatement(connection, SQL_GET_ROLE_BY_ID, false, idUser);
+                ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                role = resultSet.getString("role");
+            }
+        } catch (SQLException e) {
+            throw new UserDAOException(e);
+        } finally {
+            returnConnection(connection);
+        }
+
+        return role;
     }
 
     @Override

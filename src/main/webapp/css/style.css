@@ -359,8 +359,8 @@
 }
 
 .account_btn_show_order{
-    position: fixed;
-    margin-top: 30%;
+    position: relative;
+    margin-top: 32%;
     width: 300px;
     left: 50%;
     transform: translate(-50%, 0);
@@ -562,3 +562,95 @@ body {
     box-sizing: border-box;
     font-size: 14px;
 }
+
+.show_users_title{
+    font-size: 30px;
+    font-weight: bold;
+    color: #282828;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8% 50px 10px;
+}
+
+.show_users_info_div{
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.show_users_info_photo{
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+table {
+    font-size: 14px;
+    max-width: 80%;
+    width: 80%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    font-weight: bolder;
+    color: #282828;
+    border-bottom: 2px solid #000000;
+    width: 50px;
+    padding: 10px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+td {
+    color: #4b4b4b;
+    padding: 9px 8px;
+    transition: .3s linear;
+    width: 50px;
+    font-weight: bold;
+}
+
+.show_users_info_div tr:hover td {
+    color: #000000;
+}
+
+.show_users_info_div tr:hover button {
+    color: #000000;
+}
+
+.show_users_info_btn {
+    font-family: "Roboto", sans-serif;
+    width: 120px;
+    padding: 15px;
+    font-size: 14px;
+    box-sizing: border-box;
+    color: #4b4b4b;
+    font-weight: bold;
+    text-align: left;
+    text-indent: 3px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.show_users_info_admin{
+    margin-left: 19px;
+}
+
+.show_users_info_role{
+    text-indent: 18px;
+}
+
+

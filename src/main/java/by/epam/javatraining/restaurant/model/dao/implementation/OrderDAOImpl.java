@@ -4,6 +4,7 @@ import by.epam.javatraining.restaurant.model.dao.AbstractDAO;
 import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.entity.*;
 import by.epam.javatraining.restaurant.model.exception.OrderDAOException;
+import by.epam.javatraining.restaurant.model.exception.UserDAOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,6 +48,9 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
     private static final String SQL_UPDATE_ORDER = "update `order` set totalprice = ?, totalweight = ? where idorder = ?;";
 
+    private static final String SQL_UPDATE_STATE = "UPDATE order_state SET state = ? WHERE idorder = ?;";
+
+    private static final String SQL_UPDATE_COURIER = "UPDATE `order` SET idcourier = ? WHERE idorder = ?;";
 
     @Override
     public void insert(Entity entity) throws OrderDAOException {
@@ -96,6 +100,16 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
     @Override
     public void delete(int idClient) throws OrderDAOException {
         updateStatement(SQL_DELETE_ORDER, "Couldn't delete order ", idClient);
+    }
+
+    @Override
+    public void updateOrderState(int idOrder, String state) throws OrderDAOException {
+        updateStatement(SQL_UPDATE_STATE, "Couldn't update order detail ", state, idOrder);
+    }
+
+    @Override
+    public void updateIdCourier(int idOrder, int idCourier) throws OrderDAOException {
+        updateStatement(SQL_UPDATE_COURIER, "Couldn't update order ", idCourier, idOrder);
     }
 
     @Override

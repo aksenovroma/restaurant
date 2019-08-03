@@ -38,7 +38,7 @@ public class Main {
             Date date = new Date();
 
             Order order = new Order(880, 230, map);
-            System.out.println(orderDAO.getAllById(13));
+            orderDAO.updateOrderState(36, "accepted");
 
         } catch (DAOException e) {
             e.printStackTrace();

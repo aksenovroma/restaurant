@@ -9,4 +9,6 @@ public class PagePath {
     public static final String ACCOUNT = "view/jsp/account.jsp";
     public static final String RESERVATION = "view/jsp/reservation.jsp";
     public static final String CLIENT_ORDER = "view/jsp/client_order.jsp";
+    public static final String USERS_LIST = "view/jsp/users_list.jsp";
+    public static final String COURIER_ORDER = "view/jsp/courier_order.jsp";
 }

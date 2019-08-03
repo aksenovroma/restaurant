@@ -30,9 +30,10 @@
             <div>
                 Password : <c:out value="${sessionScope.password}"/>
             </div>
+            <div>
+                Role : <c:out value="${sessionScope.role}"/>
+            </div>
         </div>
-
-
     </div>
 </body>
 </html>

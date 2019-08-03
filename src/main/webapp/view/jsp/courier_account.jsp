@@ -10,7 +10,18 @@
 <head>
     <title>Courier Account</title>
 </head>
-<body>
+<body class="bg">
+<%@include file="header.jsp"%>
+<form method="post" action="${pageContext.request.contextPath}/restaurant">
+    <input type="hidden" name="command" value="show_order"/>
+    <div>
+        <%@include file="account_information.jsp"%>
+    </div>
+    <div>
+        <button class="account_btn_show_order" type="submit" name="show_order">Orders</button>
+    </div>
+</form>
 
+<%@include file="footer.jsp"%>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: aksenov
-  Date: 8/1/19
-  Time: 4:56 PM
+  Date: 8/3/19
+  Time: 11:52 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -19,20 +19,20 @@
 </div>
 <div>
     <form method="post" action="${pageContext.request.contextPath}/restaurant">
-        <input type="hidden" name="command" value="remove_order">
+        <input type="hidden" name="command" value="accept_order">
         <div class="client_orders">
-            <c:if test="${sessionScope.userOrder == null}">
+            <c:if test="${sessionScope.allOrders == null}">
                 <div class="client_orders_title">
                     У вас нет заказов
                 </div>
             </c:if>
-            <c:if test="${sessionScope.userOrder != null}">
+            <c:if test="${sessionScope.allOrders != null}">
                 <div class="client_orders_title">
-                    Ваши заказы
+                    Заказы
                 </div>
 
                 <div class="client_orders_div">
-                    <c:forEach items="${sessionScope.userOrder}" var="userOrders">
+                    <c:forEach items="${sessionScope.allOrders}" var="userOrders">
                         <div class="client_orders_order">
                             <div class="client_orders_dish">
                                 <c:forEach items="${userOrders.dishes}" var="orderDish">
@@ -62,16 +62,23 @@
                                 <div class="client_orders_accepted">
                                     <c:if test="${userOrders.orderState == 'ACCEPTED'}">
                                         ACCEPTED
-                                        <div class="res_order_price">
-                                            Courier ID : <c:out value="${userOrders.idCourier}"/>
-                                        </div>
+                                        <c:if test="${sessionScope.iduser == userOrders.idCourier}">
+                                            <div class="res_order_price">
+                                                It's your order
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${sessionScope.iduser != userOrders.idCourier}">
+                                            <div class="res_order_price">
+                                                Courier ID : <c:out value="${userOrders.idCourier}"/>
+                                            </div>
+                                        </c:if>
                                     </c:if>
                                 </div>
                                 <div class="client_orders_no_accepted">
                                     <c:if test="${userOrders.orderState == 'NOT_ACCEPTED'}">
                                         NOT ACCEPTED
                                         <div>
-                                            <button class="client_orders_btn_remove" type="submit" name="remove_order" value="${userOrders.id}">Remove order</button>
+                                            <button class="client_orders_btn_remove" type="submit" name="accept_order" value="${userOrders.id}">Accept order</button>
                                         </div>
                                     </c:if>
                                 </div>

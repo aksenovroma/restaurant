@@ -19,7 +19,7 @@
             <%@include file="account_information.jsp"%>
         </div>
         <div>
-            <button class="account_btn_show_order" type="submit" name="show_order">Show Users</button>
+            <button class="account_btn_show_order" type="submit" name="show_users">Show Users</button>
         </div>
     </form>
     <%@include file="footer.jsp"%>

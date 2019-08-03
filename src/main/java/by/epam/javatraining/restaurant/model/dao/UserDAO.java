@@ -8,6 +8,8 @@ import by.epam.javatraining.restaurant.model.exception.UserDAOException;
 public interface UserDAO extends DAO{
     User getByLogin(String login) throws UserDAOException;
 
+    String getRoleById(int idUser) throws UserDAOException;
+
     void updateUserRole(int idUser, UserRole userRole) throws UserDAOException;
 
     boolean existLogin(String login) throws UserDAOException;
