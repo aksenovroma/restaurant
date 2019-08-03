@@ -11,36 +11,21 @@
     <title>Sign In</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
 </head>
-<body>
+<body class="bg">
 
 <%@include file="header.jsp"%>
 
 <div class="sign_in">
-    <h1 align="center">Login</h1><br>
-    <form method="post" action="${pageContext.request.contextPath}/restaurant">
+    <form class="login-form" method="post" action="${pageContext.request.contextPath}/restaurant">
         <input type="hidden" name="command" value="sign_in"/>
-        <table cellpadding="5" cellspacing="5" align="center">
-            <tr>
-                <td>
-                    <label>
-                        <input type="text" required placeholder="login" name="login">
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>
-                        <input type="password" required placeholder="password" name="password">
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="reset" value="Clear"/>
-                    <input type="submit" value="Sign In"/>
-                </td>
-            </tr>
-        </table>
+        <div class="login-page">
+            <div class="form">
+                    <input type="text" required placeholder="login" value="login"/>
+                    <input type="password" required placeholder="password" value="password"/>
+                    <input type="submit" value="Sing In">
+                    <p class="message">Not registered? <a href="sign_up.jsp">Create an account</a></p>
+            </div>
+        </div>
     </form>
 </div>
 

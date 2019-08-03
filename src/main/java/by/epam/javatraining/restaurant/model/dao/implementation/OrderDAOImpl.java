@@ -26,7 +26,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
     private static final String SQL_INSERT_ORDER_DETAIL = "insert into restaurant.order_detail " +
             "(idorder, iddish) values (last_insert_id(), ?);";
 
-    private static final String SQL_DELETE_ORDER = "DELETE FROM restaurant.order WHERE idclient = ?;";
+    private static final String SQL_DELETE_ORDER = "DELETE FROM restaurant.order WHERE idorder = ?;";
 
     private static final String SQL_GET_ORDER = "SELECT `order`.idorder, idclient, idcourier, time, totalprice,\n" +
             "       totalweight, address, order_state.state, order_detail.iddish\n" +

@@ -12,155 +12,83 @@
 <head>
     <title>Menu</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
-    <style type="text/css">
-        #menu {
-            margin: 7% 20px;
-            border-color: azure;
-            position: center;
-            text-align: -webkit-center;
-            outline: 2px solid #000;
-        }
-
-        #menu_title {
-            padding: 10px;
-            background: #85b5a5;
-            color: #fff;
-        }
-
-        #menu_image {
-            position: center;
-            width: 300px;
-            height: 200px;
-            text-align: center;
-        }
-
-        #menu_category {
-            text-align: center;
-            font-size: 25px;
-        }
-
-        #attention {
-            color: firebrick;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        #btn_reservation{
-            margin-bottom: 30px;
-            color: #fff; /* цвет текста */
-            text-decoration: none; /* убирать подчёркивание у ссылок */
-            user-select: none; /* убирать выделение текста */
-            background: rgb(35, 181, 90); /* фон кнопки */
-            padding: .7em 1.5em;
-            font-size: 30px;
-        }
-        #btn_plus{
-            display: inline-block;
-            width: 34px;
-            height: 34px;
-            background-image: url(https://img.icons8.com/dotty/30/000000/plus.png);
-            background-size: 30px, 30px;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-        #btn_minus{
-            display: inline-block;
-            width: 34px;
-            height: 34px;
-            background-image: url(https://img.icons8.com/dotty/30/000000/minus.png);
-            background-size: 30px, 30px;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-        #dish_count{
-            display: inline-block;
-            font-size: 30px;
-            width: 34px;
-            height: 34px;
-        }
-
-        #btn_clear{
-            margin-bottom: 30px;
-            color: #fff; /* цвет текста */
-            text-decoration: none; /* убирать подчёркивание у ссылок */
-            user-select: none; /* убирать выделение текста */
-            background: rgb(143, 181, 148); /* фон кнопки */
-            padding: .7em 1.5em;
-            font-size: 30px;
-        }
-
-    </style>
 </head>
-<body>
+<body class="bg">
+<div>
+    <%@include file="header.jsp" %>
+</div>
 
-<%@include file="header.jsp" %>
 
 <form method="post" action="${pageContext.request.contextPath}/restaurant">
     <input type="hidden" name="command" value="dish_action"/>
-
-    <div class="menu">
-        <h1 class="menu_title">Menu</h1>
-
-        <c:set var="dishes" value="${sessionScope.dishes}"/>
-
-        <c:if test="${sessionScope.username != null}">
-            <c:if test="${sessionScope.role == 'client'}">
-                <div>
-                    <input class="menu_btn_reservation" type="submit" name="res_action" value="Reservation">
-                </div>
-                <div>
-                    <input class="menu_btn_clear" type="submit" name="clr_action" value="Clear">
-                </div>
+    <div>
+        <div class="menu_btn_div">
+            <c:if test="${sessionScope.username != null}">
+                <c:if test="${sessionScope.role == 'client'}">
+                    <div>
+                        <button class="menu_btn_reservation" type="submit" name="res_action">Reservation</button>
+                    </div>
+                    <div>
+                        <button class="menu_btn_clear" type="submit" name="clr_action">Clear</button>
+                    </div>
+                </c:if>
+                <c:if test="${sessionScope.role == 'admin'}">
+                    <div>
+                        <button class="menu_btn_add" type="submit" name="add_action">Add new Dish</button>
+                    </div>
+                </c:if>
             </c:if>
-        </c:if>
-
-        <c:if test="${sessionScope.username == null}">
-            <div class="menu_attention">Registration required for ordering</div>
-        </c:if>
-
-        <div>
-            <c:forEach var="dish" items="${dishes}">
-                <table>
-                    <tr>
-                        <td>
-                            <h4 class="menu_dish_category"><c:out value="${dish.dishCategory}"/></h4>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td>
+        </div>
+        <div class="menu_dish_div">
+            <c:forEach items="${sessionScope.dishes}" var="dish">
+                <div class="menu_dish">
+                    <div class="menu_dish_category">
+                        <c:out value="${dish.dishCategory}"/>
+                    </div>
+                    <div>
+                        <div>
                             <img class="menu_dish_image" src="${dish.photo}" alt="dish image">
-
-                            <h4><c:out value="${dish.name}"/></h4>
-
+                        </div>
+                        <div class="menu_dish_name">
+                            <c:out value="${dish.name}"/>
+                        </div>
+                        <div class="menu_dish_description">
                             <c:out value="${dish.description}"/>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td colspan="2">
+                        </div>
+                    </div>
+                    <div class="menu_dish_detail">
+                        <div>
                             Weight : <c:out value="${dish.weight}"/>
+                        </div>
+                        <div>
                             Price : <c:out value="${dish.price}"/>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td>
-                            <c:if test="${sessionScope.username != null}">
-                                <c:if test="${sessionScope.role == 'client'}">
-                                    <div>
-                                        <button class="menu_btn_minus" type="submit" name="remove_action" value="${dish.id}"></button>
-                                    </div>
-                                        <c:forEach items="${sessionScope.orderDishes}" var="portion">
-                                            <c:if test="${dish.id == portion.key}">
-                                                <div id="dish_count"><c:out value="${portion.value}"/></div>
-                                            </c:if>
-                                        </c:forEach>
-                                    <div>
-                                        <button class="menu_btn_plus" type="submit" name="add_action" value="${dish.id}"></button>
-                                    </div>
-                                </c:if>
+                        </div>
+                    </div>
+                    <div>
+                        <c:if test="${sessionScope.username != null}">
+                            <c:if test="${sessionScope.role == 'client'}">
+                                <div class="menu_count">
+                                    <button class="menu_btn_minus" type="submit" name="remove_action" value="${dish.id}"></button>
+                                </div>
+                                <c:forEach items="${sessionScope.orderDishes}" var="portion">
+                                    <c:if test="${dish.id == portion.key}">
+                                        <div class="menu_count">
+                                            <div class="menu_dish_count"><c:out value="${portion.value}"/></div>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
+                                <div class="menu_count">
+                                    <button class="menu_btn_plus" type="submit" name="add_action" value="${dish.id}"></button>
+                                </div>
                             </c:if>
-                        </td>
-                    </tr>
-                </table><br>
+                            <c:if test="${sessionScope.role == 'admin'}">
+                                <div>
+                                    <button class="client_orders_btn_remove" type="submit" value="remove_action">Remove</button>
+                                </div>
+                            </c:if>
+                        </c:if>
+                    </div>
+                </div>
             </c:forEach>
         </div>
     </div>

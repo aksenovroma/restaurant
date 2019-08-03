@@ -25,6 +25,7 @@ public class CheckOutCommand implements Command {
         order.setTime((new Date().toString()));
         order.setAddress(address);
 
+
         try {
             orderDAO.insert(order);
             LOGGER.info("User " + "{id=" + order.getIdClient() + "} added order");

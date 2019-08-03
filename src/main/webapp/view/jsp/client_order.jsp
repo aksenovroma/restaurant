@@ -13,69 +13,75 @@
     <title>Client Order</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
 </head>
-<body>
+<body class="bg">
+<div>
+    <%@include file="header.jsp" %>
+</div>
 <div>
     <form method="post" action="${pageContext.request.contextPath}/restaurant">
         <input type="hidden" name="command" value="remove_order">
-        <div>
+        <div class="client_orders">
             <c:if test="${sessionScope.userOrder == null}">
-                У вас нет заказов
+                <div class="client_orders_title">
+                    У вас нет заказов
+                </div>
             </c:if>
             <c:if test="${sessionScope.userOrder != null}">
-                <div class="res_order_title">
+                <div class="client_orders_title">
                     Ваши заказы
                 </div>
 
-                <c:forEach items="${sessionScope.userOrder}" var="userOrders">
-                    <div>
-                        <div>
-                            <c:forEach items="${userOrders.dishes}" var="orderDish">
-                                <c:forEach items="${sessionScope.dishes}" var="dish">
-                                    <c:if test="${orderDish.key == dish.id}">
-                                        <c:out value="${dish.name}"/>
-                                    </c:if>
-                                </c:forEach>х
-                                <c:out value="${orderDish.value}"/><br>
-                            </c:forEach>
-                        </div>
-                        <div class="res_order_weight">
-                            Weight : <c:out value="${userOrders.totalWeight}"/>
-                        </div>
-                        <div class="res_order_price">
-                            Price : <c:out value="${userOrders.totalPrice}"/>
-                        </div>
-                        <div class="res_order_price">
-                            Time : <c:out value="${userOrders.time}"/>
-                        </div>
-                        <div class="res_order_price">
-                            Address : <c:out value="${userOrders.address}"/>
-                        </div>
-                        <div>
+                <div class="client_orders_div">
+                    <c:forEach items="${sessionScope.userOrder}" var="userOrders">
+                        <div class="client_orders_order">
+                            <div class="client_orders_dish">
+                                <c:forEach items="${userOrders.dishes}" var="orderDish">
+                                    <c:forEach items="${sessionScope.dishes}" var="dish">
+                                        <c:if test="${orderDish.key == dish.id}">
+                                            <c:out value="${dish.name}"/>
+                                        </c:if>
+                                    </c:forEach>х
+                                    <c:out value="${orderDish.value}"/><br>
+                                </c:forEach>
+                            </div>
+                            <div class="client_orders_detail">
+                                <div class="res_order_weight">
+                                    Weight : <c:out value="${userOrders.totalWeight}"/>
+                                </div>
+                                <div class="res_order_price">
+                                    Price : <c:out value="${userOrders.totalPrice}"/>
+                                </div>
+                                <div class="res_order_price">
+                                    Time : <c:out value="${userOrders.time}"/>
+                                </div>
+                                <div class="res_order_price">
+                                    Address : <c:out value="${userOrders.address}"/>
+                                </div>
+                            </div>
                             <div>
-                                <c:if test="${userOrders.orderState == 'ACCEPTED'}">
-                                    State :
-                                    <div>
+                                <div class="client_orders_accepted">
+                                    <c:if test="${userOrders.orderState == 'ACCEPTED'}">
                                         ACCEPTED
-                                    </div>
-                                </c:if>
-                            </div>
-                            <div>
-                                <c:if test="${userOrders.orderState == 'NOT_ACCEPTED'}">
-                                    State :
-                                    <div>
+                                    </c:if>
+                                </div>
+                                <div class="client_orders_no_accepted">
+                                    <c:if test="${userOrders.orderState == 'NOT_ACCEPTED'}">
                                         NOT ACCEPTED
-                                    </div>
-                                    <div>
-                                        <button type="submit" name="remove_order">Remove order</button>
-                                    </div>
-                                </c:if>
+                                        <div>
+                                            <button class="client_orders_btn_remove" type="submit" name="remove_order" value="${userOrders.id}">Remove order</button>
+                                        </div>
+                                    </c:if>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
+                </div>
             </c:if>
         </div>
     </form>
+</div>
+<div>
+    <%@include file="footer.jsp" %>
 </div>
 </body>
 </html>

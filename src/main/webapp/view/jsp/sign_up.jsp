@@ -21,37 +21,17 @@
 <div class="sign_up">
     <form id="form_id" method="post" action="${pageContext.request.contextPath}/restaurant" onsubmit="javascript:return validate('form_id','login');">
         <input type="hidden" name="command" value="sign_up"/>
-        <h1 class="sign_up_title">Registration</h1><br>
-        <table cellspacing="6" cellpadding="6" align="center">
-            <tr>
-                <td>
-                    <label>
-                        <input type="text" required placeholder="name" name="name">
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>
-                        <input type="text" required placeholder="e-main" name="login">
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>
-                        <input type="password" required placeholder="password" name="password">
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="reset" value="Clear"/>
-                    <input type="submit" value="Sign Up"/>
-                </td>
-            </tr>
-
-        </table>
+        <div class="login-page">
+            <div class="form">
+                <form class="register-form">
+                    <input type="text" required placeholder="name" value="name"/>
+                    <input type="text" required placeholder="e-mail" value="login"/>
+                    <input type="password" required placeholder="password" value="password"/>
+                    <input type="submit" value="Sing Up">
+                    <p class="message">Already registered? <a href="sign_in.jsp">Sign In</a></p>
+                </form>
+            </div>
+        </div>
     </form>
 </div>
 
