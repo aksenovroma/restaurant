@@ -7,10 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
+<fmt:bundle basename="localization">
+    <fmt:message key="locale.account.title" var="title"/>
+</fmt:bundle>
 
 <html>
 <head>
-    <title>Account</title>
+    <title>${title}</title>
     <script src="../../js/redirectPage.js"></script>
 </head>
 <body>

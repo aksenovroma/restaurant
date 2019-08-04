@@ -7,10 +7,21 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
+<fmt:bundle basename="localization">
+    <fmt:message key="locale.menu.title" var="title"/>
+    <fmt:message key="locale.menu.reservation" var="reservation"/>
+    <fmt:message key="locale.menu.add_new_dish" var="add_new_dish"/>
+    <fmt:message key="locale.menu.clear" var="clear"/>
+    <fmt:message key="locale.menu.weight" var="weihgt"/>
+    <fmt:message key="locale.menu.price" var="price"/>
+    <fmt:message key="locale.menu.remove" var="remove"/>
+</fmt:bundle>
 
 <html>
 <head>
-    <title>Menu</title>
+    <title>${title}</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
     <script src="../../js/redirectPage.js"></script>
 </head>
@@ -27,16 +38,16 @@
             <c:if test="${sessionScope.username != null}">
                 <c:if test="${sessionScope.role == 'client'}">
                     <div>
-                        <button class="menu_btn_reservation" type="submit" name="res_action">Reservation</button>
+                        <button class="menu_btn_reservation" type="submit" name="res_action">${reservation}</button>
                     </div>
                     <div>
-                        <button class="menu_btn_clear" type="submit" name="clr_action">Clear</button>
+                        <button class="menu_btn_clear" type="submit" name="clr_action">${clear}</button>
                     </div>
                 </c:if>
                 <c:if test="${sessionScope.role == 'admin'}">
                     <div>
                         <a href="${pageContext.request.contextPath}/view/jsp/add_dish.jsp">
-                            <input class="menu_btn_add" type="button" value="Add new Dish"/>
+                            <input class="menu_btn_add" type="button" value="${add_new_dish}"/>
                         </a>
                     </div>
                 </c:if>
@@ -61,17 +72,18 @@
                     </div>
                     <div class="menu_dish_detail">
                         <div>
-                            Weight : <c:out value="${dish.weight}"/>
+                                ${weihgt} : <c:out value="${dish.weight}"/>
                         </div>
                         <div>
-                            Price : <c:out value="${dish.price}"/>
+                                ${price} : <c:out value="${dish.price}"/>
                         </div>
                     </div>
                     <div>
                         <c:if test="${sessionScope.username != null}">
                             <c:if test="${sessionScope.role == 'client'}">
                                 <div class="menu_count">
-                                    <button class="menu_btn_minus" type="submit" name="remove_action" value="${dish.id}"></button>
+                                    <button class="menu_btn_minus" type="submit" name="remove_action"
+                                            value="${dish.id}"></button>
                                 </div>
                                 <c:forEach items="${sessionScope.orderDishes}" var="portion">
                                     <c:if test="${dish.id == portion.key}">
@@ -81,12 +93,14 @@
                                     </c:if>
                                 </c:forEach>
                                 <div class="menu_count">
-                                    <button class="menu_btn_plus" type="submit" name="add_action" value="${dish.id}"></button>
+                                    <button class="menu_btn_plus" type="submit" name="add_action"
+                                            value="${dish.id}"></button>
                                 </div>
                             </c:if>
                             <c:if test="${sessionScope.role == 'admin'}">
                                 <div>
-                                    <button class="client_orders_btn_remove" type="submit" name="remove_dish_action" value="${dish.id}">Remove</button>
+                                    <button class="client_orders_btn_remove" type="submit" name="remove_dish_action"
+                                            value="${dish.id}">${remove}</button>
                                 </div>
                             </c:if>
                         </c:if>

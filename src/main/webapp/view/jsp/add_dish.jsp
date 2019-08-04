@@ -7,9 +7,25 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
+<fmt:bundle basename="localization">
+    <fmt:message key="locale.add_dish.title" var="title"/>
+    <fmt:message key="locale.add_dish.choose" var="choose"/>
+    <fmt:message key="locale.add_dish.appetizer" var="appetizer"/>
+    <fmt:message key="locale.add_dish.soup" var="soup"/>
+    <fmt:message key="locale.add_dish.dessert" var="dessert"/>
+    <fmt:message key="locale.add_dish.drink" var="drink"/>
+    <fmt:message key="locale.add_dish.name" var="name"/>
+    <fmt:message key="locale.add_dish.price" var="price"/>
+    <fmt:message key="locale.add_dish.weight" var="weight"/>
+    <fmt:message key="locale.add_dish.image_url" var="image_url"/>
+    <fmt:message key="locale.add_dish.description" var="description"/>
+    <fmt:message key="locale.add_dish.add" var="add"/>
+</fmt:bundle>
 <html>
 <head>
-    <title>New Dish</title>
+    <title>${title}</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
     <script src="../../js/numberValidation.js"></script>
 </head>
@@ -23,18 +39,18 @@
                 <div class="add_dish_form">
                     <form class="register-form">
                         <select name="category">
-                            <option disabled>Choose dish category</option>
-                            <option value="appetizer">Appetizer</option>
-                            <option value="soup">Soup</option>
-                            <option value="dessert">Dessert</option>
-                            <option value="drink">Drink</option>
+                            <option disabled>${choose}</option>
+                            <option value="appetizer">${appetizer}</option>
+                            <option value="soup">${soup}</option>
+                            <option value="dessert">${dessert}</option>
+                            <option value="drink">${drink}</option>
                         </select>
-                        <input type="text" required placeholder="name" name="name"/>
-                        <input type="text" required placeholder="price" name="price"/>
-                        <input type="text" required placeholder="weight" name="weight"/>
-                        <input type="text" required placeholder="image-url" name="image-url"/>
-                        <input type="text" required placeholder="description" name="description"/>
-                        <input type="submit" value="Add">
+                        <input type="text" required placeholder="${name}" name="name"/>
+                        <input type="text" required placeholder="${price}" name="price"/>
+                        <input type="text" required placeholder="${weight}" name="weight"/>
+                        <input type="text" required placeholder="${image_url}" name="image-url"/>
+                        <input type="text" required placeholder="${description}" name="description"/>
+                        <input type="submit" value="${add}">
                     </form>
                 </div>
             </div>

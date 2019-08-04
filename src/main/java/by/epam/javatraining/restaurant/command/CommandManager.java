@@ -6,7 +6,7 @@ import java.util.Map;
 public class CommandManager {
     public enum CommandType {
         UNKNOWN, SIGN_IN, SIGN_UP, SIGN_OUT, SHOW_MENU, DISH_ACTION, CHECK_OUT, SHOW_ORDER,
-        REMOVE_ORDER, REMOVE_DISH, ADD_DISH, SHOW_USERS, CHANGE_ROLE, ACCEPT_ORDER
+        REMOVE_ORDER, REMOVE_DISH, ADD_DISH, SHOW_USERS, CHANGE_ROLE, ACCEPT_ORDER, CHANGE_LOCALE
     }
 
     private static final Map<CommandType, Command> commandMap;
@@ -26,6 +26,7 @@ public class CommandManager {
         commandMap.put(CommandType.SHOW_USERS, new ShowUsersCommand());
         commandMap.put(CommandType.CHANGE_ROLE, new ChangeRoleCommand());
         commandMap.put(CommandType.ACCEPT_ORDER, new AcceptOrderCommand());
+        commandMap.put(CommandType.CHANGE_LOCALE, new ChangeLocaleCommand());
     }
 
     public static Command getCommand(String commandName) {

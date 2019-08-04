@@ -7,10 +7,26 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
+<fmt:bundle basename="localization">
+    <fmt:message key="locale.client_order.title" var="title"/>
+    <fmt:message key="locale.client_order.no_orders" var="no_orders"/>
+    <fmt:message key="locale.client_order.orders" var="orders"/>
+    <fmt:message key="locale.client_order.weight" var="weight"/>
+    <fmt:message key="locale.client_order.price" var="price"/>
+    <fmt:message key="locale.client_order.time" var="time"/>
+    <fmt:message key="locale.client_order.address" var="address"/>
+    <fmt:message key="locale.client_order.accepted" var="accepted"/>
+    <fmt:message key="locale.client_order.not_accepted" var="not_accepted"/>
+    <fmt:message key="locale.client_order.courier_id" var="courier_id"/>
+    <fmt:message key="locale.client_order.remove_order" var="remove_order"/>
+
+</fmt:bundle>
 
 <html>
 <head>
-    <title>Client Order</title>
+    <title>${title}</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
 </head>
 <body class="bg">
@@ -23,12 +39,12 @@
         <div class="client_orders">
             <c:if test="${sessionScope.userOrder == null}">
                 <div class="client_orders_title">
-                    У вас нет заказов
+                        ${no_orders}
                 </div>
             </c:if>
             <c:if test="${sessionScope.userOrder != null}">
                 <div class="client_orders_title">
-                    Ваши заказы
+                        ${orders}
                 </div>
 
                 <div class="client_orders_div">
@@ -46,32 +62,33 @@
                             </div>
                             <div class="client_orders_detail">
                                 <div class="res_order_weight">
-                                    Weight : <c:out value="${userOrders.totalWeight}"/>
+                                        ${weight} : <c:out value="${userOrders.totalWeight}"/>
                                 </div>
                                 <div class="res_order_price">
-                                    Price : <c:out value="${userOrders.totalPrice}"/>
+                                        ${price} : <c:out value="${userOrders.totalPrice}"/>
                                 </div>
                                 <div class="res_order_price">
-                                    Time : <c:out value="${userOrders.time}"/>
+                                        ${time} : <c:out value="${userOrders.time}"/>
                                 </div>
                                 <div class="res_order_price">
-                                    Address : <c:out value="${userOrders.address}"/>
+                                        ${address} : <c:out value="${userOrders.address}"/>
                                 </div>
                             </div>
                             <div>
                                 <div class="client_orders_accepted">
                                     <c:if test="${userOrders.orderState == 'ACCEPTED'}">
-                                        ACCEPTED
+                                        ${accepted}
                                         <div class="res_order_price">
-                                            Courier ID : <c:out value="${userOrders.idCourier}"/>
+                                                ${courier_id} : <c:out value="${userOrders.idCourier}"/>
                                         </div>
                                     </c:if>
                                 </div>
                                 <div class="client_orders_no_accepted">
                                     <c:if test="${userOrders.orderState == 'NOT_ACCEPTED'}">
-                                        NOT ACCEPTED
+                                        ${not_accepted}
                                         <div>
-                                            <button class="client_orders_btn_remove" type="submit" name="remove_order" value="${userOrders.id}">Remove order</button>
+                                            <button class="client_orders_btn_remove" type="submit" name="remove_order"
+                                                    value="${userOrders.id}">${remove_order}</button>
                                         </div>
                                     </c:if>
                                 </div>
