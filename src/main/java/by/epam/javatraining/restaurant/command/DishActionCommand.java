@@ -1,7 +1,6 @@
 package by.epam.javatraining.restaurant.command;
 
 import by.epam.javatraining.restaurant.model.dao.DishDAO;
-import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.DishDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.Order;
@@ -15,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class DishActionCommand implements Command {
     private HashMap<Integer, Integer> orderDishes;
     private static final DishDAO dishDAO = new DishDAOImpl();
@@ -26,11 +27,11 @@ public class DishActionCommand implements Command {
         if (req.getSession().getAttribute("orderDishes") != null) {
             orderDishes = (HashMap) req.getSession().getAttribute("orderDishes");
 
-            String addDish = req.getParameter("add_action");
-            String removeDish = req.getParameter("remove_action");
-            String reservation = req.getParameter("res_action");
-            String removeDishFromMenu = req.getParameter("remove_dish_action");
-            String clear = req.getParameter("clr_action");
+            String addDish = req.getParameter(getConst(PAR_ADD_ACTION));
+            String removeDish = req.getParameter(getConst(PAR_REMOVE_ACTION));
+            String reservation = req.getParameter(getConst(PAR_RES_ACTION));
+            String removeDishFromMenu = req.getParameter(getConst(PAR_REMOVE_DISH_ACTION));
+            String clear = req.getParameter(getConst(PAR_CLR_ACTION));
 
             if (addDish != null) {
                 for (Map.Entry<Integer, Integer> entry : orderDishes.entrySet()) {

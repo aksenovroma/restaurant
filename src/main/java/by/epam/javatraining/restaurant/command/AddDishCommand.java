@@ -10,18 +10,20 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class AddDishCommand implements Command {
     private static final DishDAO dishDAO = new DishDAOImpl();
     private static final Logger LOGGER = Logger.getRootLogger();
 
     @Override
     public String execute(HttpServletRequest req) {
-        DishCategory dishCategory = DishCategory.valueOf(req.getParameter("category").toUpperCase());
-        String name = req.getParameter("name");
-        double price = Double.valueOf(req.getParameter("price"));
-        double weight = Double.valueOf(req.getParameter("weight"));
-        String photo = req.getParameter("image-url");
-        String description = req.getParameter("description");
+        DishCategory dishCategory = DishCategory.valueOf(req.getParameter(getConst(PAR_CATEGORY)).toUpperCase());
+        String name = req.getParameter(getConst(PAR_NAME));
+        double price = Double.valueOf(req.getParameter(getConst(PAR_PRICE)));
+        double weight = Double.valueOf(req.getParameter(getConst(PAR_WEIGHT)));
+        String photo = req.getParameter(getConst(PAR_IMAGE_URL));
+        String description = req.getParameter(getConst(PAR_DESCRIPTION));
 
         Dish dish = new Dish(name, price, weight, photo, description, dishCategory);
 

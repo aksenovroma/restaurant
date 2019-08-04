@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class RemoveOrderCommand implements Command {
     private static final OrderDAO orderDAO = new OrderDAOImpl();
     private static final Logger LOGGER = Logger.getRootLogger();
@@ -16,9 +18,9 @@ public class RemoveOrderCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         try {
-            int idOrder = Integer.parseInt(req.getParameter("remove_order"));
+            int idOrder = Integer.parseInt(req.getParameter(getConst(PAR_REMOVE_ORDER)));
             orderDAO.delete(idOrder);
-            List orders = orderDAO.getAllById((Integer)req.getSession().getAttribute("iduser"));
+            List orders = orderDAO.getAllById((Integer) req.getSession().getAttribute("iduser"));
             if (!orders.isEmpty()) {
                 req.getSession().setAttribute("userOrder", orders);
             } else {

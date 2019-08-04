@@ -2,7 +2,7 @@ package by.epam.javatraining.restaurant.util;
 
 import java.util.ResourceBundle;
 
-public class Configuration {
+public class ConfigurationDB {
     private static final ResourceBundle resourceBundle;
 
     public static final String DB_USER_NAME = "username";

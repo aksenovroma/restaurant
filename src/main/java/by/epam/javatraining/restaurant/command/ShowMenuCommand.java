@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class ShowMenuCommand implements Command {
     private static DishDAO dishDAO = new DishDAOImpl();
 

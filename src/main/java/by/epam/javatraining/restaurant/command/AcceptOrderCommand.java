@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class AcceptOrderCommand implements Command {
     private static final OrderDAO orderDAO = new OrderDAOImpl();
     private static final Logger LOGGER = Logger.getRootLogger();
@@ -17,7 +19,7 @@ public class AcceptOrderCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         try {
-            int idOrder = Integer.parseInt(req.getParameter("accept_order"));
+            int idOrder = Integer.parseInt(req.getParameter(getConst(PAR_ACCEPT_ORDER)));
             int idCourier = (int) req.getSession().getAttribute("iduser");
             orderDAO.updateOrderState(idOrder, OrderState.ACCEPTED.getState());
             orderDAO.updateIdCourier(idOrder, idCourier);

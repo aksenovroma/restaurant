@@ -13,6 +13,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class ShowOrderCommand implements Command {
     private static final OrderDAO orderDAO = new OrderDAOImpl();
     private static final DishDAO dishDAO = new DishDAOImpl();

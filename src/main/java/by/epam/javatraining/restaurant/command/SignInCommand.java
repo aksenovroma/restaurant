@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class SignInCommand implements Command {
     private static final Logger LOGGER = Logger.getRootLogger();
 
@@ -16,8 +18,8 @@ public class SignInCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        String login = req.getParameter(getConst(PAR_LOGIN));
+        String password = req.getParameter(getConst(PAR_PASSWORD));
         LOGGER.trace("login : " + login);
         LOGGER.trace("password : " + password);
 

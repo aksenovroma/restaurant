@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class ShowUsersCommand implements Command {
     private static final UserDAO userDAO = new UserDAOImpl();
     private static final Logger LOGGER = Logger.getRootLogger();

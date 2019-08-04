@@ -4,11 +4,12 @@ import by.epam.javatraining.restaurant.model.dao.UserDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.UserDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.UserRole;
 import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.model.exception.UserDAOException;
 import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+
+import static by.epam.javatraining.restaurant.util.Constant.*;
 
 public class ChangeRoleCommand implements Command {
     private static final UserDAO userDAO = new UserDAOImpl();
@@ -16,8 +17,8 @@ public class ChangeRoleCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        String client = req.getParameter("userRoleClient");
-        String courier = req.getParameter("userRoleCourier");
+        String client = req.getParameter(getConst(PAR_USER_ROLE_CLIENT));
+        String courier = req.getParameter(getConst(PAR_USER_ROLE_COURIER));
         System.out.println(client);
         System.out.println(courier);
 

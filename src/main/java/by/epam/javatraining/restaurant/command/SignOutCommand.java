@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class SignOutCommand implements Command {
     private static final Logger LOGGER = Logger.getRootLogger();
 

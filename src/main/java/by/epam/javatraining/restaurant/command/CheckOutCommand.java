@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static by.epam.javatraining.restaurant.util.Constant.*;
+
 public class CheckOutCommand implements Command {
     private static final OrderDAO orderDAO = new OrderDAOImpl();
     private static final Logger LOGGER = Logger.getRootLogger();
@@ -20,7 +22,7 @@ public class CheckOutCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         Order order = (Order) req.getSession().getAttribute("order");
-        String address = req.getParameter("address");
+        String address = req.getParameter(getConst(PAR_ADDRESS));
         order.setIdClient((Integer)req.getSession().getAttribute("iduser"));
         order.setTime((new Date().toString()));
         order.setAddress(address);
