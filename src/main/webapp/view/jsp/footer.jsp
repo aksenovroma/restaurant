@@ -13,6 +13,8 @@
     <body>
         <div class="footer">
             <a href="${pageContext.request.contextPath}/index.jsp" class="footer_link">${home}</a> |
+            <a href="${pageContext.request.contextPath}/restaurant?command=change_locale&localization=be_BY"
+               class="footer_link">BY</a> |
             <a href="${pageContext.request.contextPath}/restaurant?command=change_locale&localization=en_US"
                class="footer_link">EN</a> |
             <a href="${pageContext.request.contextPath}/restaurant?command=change_locale&localization=ru_RU"
