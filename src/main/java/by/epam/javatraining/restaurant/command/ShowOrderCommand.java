@@ -4,10 +4,8 @@ import by.epam.javatraining.restaurant.model.dao.DishDAO;
 import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.DishDAOImpl;
 import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
-import by.epam.javatraining.restaurant.model.entity.Order;
 import by.epam.javatraining.restaurant.model.entity.UserRole;
 import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,29 +20,30 @@ public class ShowOrderCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        String userRole = (String) req.getSession().getAttribute("role");
+        String userRole = (String) req.getSession().getAttribute(getConst(ATR_ROLE));
+        String page = getConst(PAGE_ACCOUNT);
 
         try {
             List dishes = dishDAO.getAll();
-            req.getSession().setAttribute("dishes", dishes);
+            req.getSession().setAttribute(getConst(ATR_DISHES), dishes);
             if (userRole != null) {
-                if (userRole.equals("courier")) {
+                if (userRole.equals(UserRole.COURIER.getRole())) {
                     List orders = orderDAO.getAll();
-                    req.getSession().setAttribute("allOrders", orders);
-                    return PagePath.COURIER_ORDER;
+                    req.getSession().setAttribute(getConst(ATR_ALL_ORDERS), orders);
+                    page = getConst(PAGE_COURIER_ORDER);
                 } else {
-                    List orders = orderDAO.getAllById((Integer)req.getSession().getAttribute("iduser"));
+                    List orders = orderDAO.getAllById((Integer)req.getSession().getAttribute(getConst(ATR_ID_USER)));
                     if (!orders.isEmpty()) {
-                        req.getSession().setAttribute("userOrder", orders);
+                        req.getSession().setAttribute(getConst(ATR_USER_ORDER), orders);
                     } else {
-                        req.getSession().setAttribute("userOrder", null);
+                        req.getSession().setAttribute(getConst(ATR_USER_ORDER), null);
                     }
-                    return PagePath.CLIENT_ORDER;
+                    page = getConst(PAGE_CLIENT_ORDER);
                 }
             }
         } catch (DAOException e) {
             LOGGER.error(e);
         }
-        return PagePath.ACCOUNT;
+        return page;
     }
 }

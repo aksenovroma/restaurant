@@ -4,7 +4,6 @@ import by.epam.javatraining.restaurant.model.dao.UserDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.UserDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.UserRole;
 import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,18 +25,18 @@ public class ChangeRoleCommand implements Command {
             if (client != null) {
                 int idUser = Integer.valueOf(client);
                 userDAO.updateUserRole(idUser, UserRole.COURIER);
-                req.getSession().setAttribute("role", UserRole.COURIER.getRole());
+                req.getSession().setAttribute(getConst(ATR_ROLE), UserRole.COURIER.getRole());
 
             } else if (courier != null){
                 int idUser = Integer.valueOf(courier);
                 userDAO.updateUserRole(idUser, UserRole.CLIENT);
-                req.getSession().setAttribute("role", UserRole.CLIENT.getRole());
+                req.getSession().setAttribute(getConst(ATR_ROLE), UserRole.CLIENT.getRole());
             }
-            req.getSession().setAttribute("users", userDAO.getAll());
+            req.getSession().setAttribute(getConst(ATR_USERS), userDAO.getAll());
         } catch (DAOException e) {
             LOGGER.error(e);
         }
 
-        return PagePath.USERS_LIST;
+        return getConst(PAGE_USERS_LIST);
     }
 }

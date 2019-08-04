@@ -4,7 +4,6 @@ import by.epam.javatraining.restaurant.model.dao.DishDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.DishDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,15 +21,15 @@ public class ShowMenuCommand implements Command {
     public String execute(HttpServletRequest req) {
         try {
             List dishes = dishDAO.getAll();
-            req.getSession().setAttribute("dishes", dishes);
+            req.getSession().setAttribute(getConst(ATR_DISHES), dishes);
             HashMap<Integer, Integer> orderDishes = new HashMap<>();
             for (Object dish : dishes) {
                 orderDishes.put(((Dish) dish).getId(), 0);
             }
-            req.getSession().setAttribute("orderDishes", orderDishes);
+            req.getSession().setAttribute(getConst(ATR_ORDER_DISHES), orderDishes);
         } catch (DAOException e) {
             LOGGER.error(e);
         }
-        return PagePath.MENU;
+        return getConst(PAGE_MENU);
     }
 }

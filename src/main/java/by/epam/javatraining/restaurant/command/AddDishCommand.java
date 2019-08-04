@@ -5,7 +5,6 @@ import by.epam.javatraining.restaurant.model.dao.implementation.DishDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.DishCategory;
 import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,10 +28,10 @@ public class AddDishCommand implements Command {
 
         try {
             dishDAO.insert(dish);
-            req.getSession().setAttribute("dishes", dishDAO.getAll());
+            req.getSession().setAttribute(getConst(ATR_DISHES), dishDAO.getAll());
         } catch (DAOException e) {
             LOGGER.error(e);
         }
-        return PagePath.MENU;
+        return getConst(PAGE_MENU);
     }
 }

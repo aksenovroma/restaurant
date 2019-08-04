@@ -3,8 +3,6 @@ package by.epam.javatraining.restaurant.command;
 import by.epam.javatraining.restaurant.model.dao.implementation.UserDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.User;
 import by.epam.javatraining.restaurant.model.exception.UserDAOException;
-import by.epam.javatraining.restaurant.util.Constant;
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,13 +16,11 @@ public class SignUpCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        LOGGER.info("SignUpCommand started");
+        LOGGER.info(getConst(LOG_SIGN_UP_START));
         String name = req.getParameter(getConst(PAR_NAME));
         String login = req.getParameter(getConst(PAR_LOGIN));
         String password = req.getParameter(getConst(PAR_PASSWORD));
-        LOGGER.trace("name : " + name);
-        LOGGER.trace("login : " + login);
-        LOGGER.trace("password : " + password);
+        LOGGER.trace(getConst(LOG_SIGN_UP_LOGIN) + login);
 
         User user = new User(name, login, password);
 
@@ -33,21 +29,19 @@ public class SignUpCommand implements Command {
                 userDAO.insert(user);
                 user = userDAO.getByLogin(login);
             } else {
-                return PagePath.REGISTRATION;
+                return getConst(PAGE_REGISTRATION);
             }
         } catch (UserDAOException e) {
             LOGGER.error(e);
         }
 
-        req.getSession().setAttribute("iduser", user.getId());
-        req.getSession().setAttribute("username", user.getName());
-        req.getSession().setAttribute("login", user.getLogin());
-        req.getSession().setAttribute("password", user.getPassword());
-        req.getSession().setAttribute("role", user.getUserRole().getRole());
-        req.getSession().setAttribute("userphoto", user.getPhoto());
+        req.getSession().setAttribute(getConst(ATR_ID_USER), user.getId());
+        req.getSession().setAttribute(getConst(ATR_USER_NAME), user.getName());
+        req.getSession().setAttribute(getConst(ATR_LOGIN), user.getLogin());
+        req.getSession().setAttribute(getConst(ATR_PASSWORD), user.getPassword());
+        req.getSession().setAttribute(getConst(ATR_ROLE), user.getUserRole().getRole());
+        req.getSession().setAttribute(getConst(ATR_USER_PHOTO), user.getPhoto());
 
-        LOGGER.info("SignUpCommand return " + PagePath.MAIN);
-
-        return PagePath.MAIN;
+        return getConst(PAGE_MAIN);
     }
 }

@@ -4,7 +4,6 @@ import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.OrderState;
 import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,14 +19,14 @@ public class AcceptOrderCommand implements Command {
     public String execute(HttpServletRequest req) {
         try {
             int idOrder = Integer.parseInt(req.getParameter(getConst(PAR_ACCEPT_ORDER)));
-            int idCourier = (int) req.getSession().getAttribute("iduser");
+            int idCourier = (int) req.getSession().getAttribute(getConst(ATR_ID_USER));
             orderDAO.updateOrderState(idOrder, OrderState.ACCEPTED.getState());
             orderDAO.updateIdCourier(idOrder, idCourier);
             List orders = orderDAO.getAll();
-            req.getSession().setAttribute("allOrders", orders);
+            req.getSession().setAttribute(getConst(ATR_ALL_ORDERS), orders);
         } catch (DAOException e) {
             LOGGER.error(e);
         }
-        return PagePath.COURIER_ORDER;
+        return getConst(PAGE_COURIER_ORDER);
     }
 }

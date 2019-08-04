@@ -1,6 +1,5 @@
 package by.epam.javatraining.restaurant.command;
 
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +11,10 @@ public class SignOutCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        LOGGER.info("SignOutCommand started");
+        LOGGER.info(getConst(LOG_SIGN_OUT_START));
 
         req.getSession().invalidate();
 
-        LOGGER.info("SignOutCommand return " + PagePath.MAIN);
-
-        return PagePath.MAIN;
+        return getConst(PAGE_MAIN);
     }
 }

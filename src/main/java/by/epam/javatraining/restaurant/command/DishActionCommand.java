@@ -6,7 +6,6 @@ import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.Order;
 import by.epam.javatraining.restaurant.model.exception.DAOException;
 import by.epam.javatraining.restaurant.model.logic.OrderManager;
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +22,9 @@ public class DishActionCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        String pagePath = PagePath.MENU;
-        if (req.getSession().getAttribute("orderDishes") != null) {
-            orderDishes = (HashMap) req.getSession().getAttribute("orderDishes");
+        String pagePath = getConst(PAGE_MENU);
+        if (req.getSession().getAttribute(getConst(ATR_ORDER_DISHES)) != null) {
+            orderDishes = (HashMap) req.getSession().getAttribute(getConst(ATR_ORDER_DISHES));
 
             String addDish = req.getParameter(getConst(PAR_ADD_ACTION));
             String removeDish = req.getParameter(getConst(PAR_REMOVE_ACTION));
@@ -41,8 +40,7 @@ public class DishActionCommand implements Command {
                         entry.setValue(count);
                     }
                 }
-                req.getSession().setAttribute("orderDishes", orderDishes);
-                req.getSession().setAttribute("add_action", null);
+                req.getSession().setAttribute(getConst(ATR_ORDER_DISHES), orderDishes);
             } else if (removeDish != null) {
                 for (Map.Entry<Integer, Integer> entry : orderDishes.entrySet()) {
                     if (entry.getKey().equals(Integer.valueOf(removeDish)) && entry.getValue() > 0) {
@@ -51,10 +49,8 @@ public class DishActionCommand implements Command {
                         entry.setValue(count);
                     }
                 }
-                req.getSession().setAttribute("orderDishes", orderDishes);
-                req.getSession().setAttribute("remove_action", null);
+                req.getSession().setAttribute(getConst(ATR_ORDER_DISHES), orderDishes);
             } else if (reservation != null) {
-                req.getSession().setAttribute("res_action", null);
                 if (!isEmptyOrder()) {
                     Order order = new Order();
                     OrderManager orderManager = new OrderManager();
@@ -69,27 +65,26 @@ public class DishActionCommand implements Command {
                     order.setDishes(dishes);
                     order.setTotalPrice(orderManager.totalPrice(order, req));
                     order.setTotalWeight(orderManager.totalWeight(order, req));
-                    req.getSession().setAttribute("order", order);
-                    pagePath = PagePath.RESERVATION;
+                    req.getSession().setAttribute(getConst(ATR_ORDER), order);
+                    pagePath = getConst(PAGE_RESERVATION);
                     return pagePath;
                 } else {
                     return pagePath;
                 }
             } else if (clear != null) {
-                List dishes = (List) req.getSession().getAttribute("dishes");
+                List dishes = (List) req.getSession().getAttribute(getConst(ATR_DISHES));
                 HashMap<Integer, Integer> orderDishes = new HashMap<>();
                 if (dishes != null) {
                     for (Object dish : dishes) {
                         orderDishes.put(((Dish) dish).getId(), 0);
                     }
-                    req.getSession().setAttribute("orderDishes", orderDishes);
+                    req.getSession().setAttribute(getConst(ATR_ORDER_DISHES), orderDishes);
                 }
-                req.getSession().setAttribute("clr_action", null);
                 return pagePath;
             } else if (removeDishFromMenu != null) {
                 try {
                     dishDAO.delete(Integer.valueOf(removeDishFromMenu));
-                    req.getSession().setAttribute("dishes", dishDAO.getAll());
+                    req.getSession().setAttribute(getConst(ATR_DISHES), dishDAO.getAll());
                 } catch (DAOException e) {
                     LOGGER.error(e);
                 }

@@ -3,7 +3,6 @@ package by.epam.javatraining.restaurant.command;
 import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
 import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,15 +19,15 @@ public class RemoveOrderCommand implements Command {
         try {
             int idOrder = Integer.parseInt(req.getParameter(getConst(PAR_REMOVE_ORDER)));
             orderDAO.delete(idOrder);
-            List orders = orderDAO.getAllById((Integer) req.getSession().getAttribute("iduser"));
+            List orders = orderDAO.getAllById((Integer) req.getSession().getAttribute(getConst(ATR_ID_USER)));
             if (!orders.isEmpty()) {
-                req.getSession().setAttribute("userOrder", orders);
+                req.getSession().setAttribute(getConst(ATR_USER_ORDER), orders);
             } else {
-                req.getSession().setAttribute("userOrder", null);
+                req.getSession().setAttribute(getConst(ATR_USER_ORDER), null);
             }
         } catch (DAOException e) {
             LOGGER.error(e);
         }
-        return PagePath.CLIENT_ORDER;
+        return getConst(PAGE_CLIENT_ORDER);
     }
 }

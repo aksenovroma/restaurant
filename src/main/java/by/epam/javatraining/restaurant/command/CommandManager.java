@@ -1,5 +1,7 @@
 package by.epam.javatraining.restaurant.command;
 
+import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ public class CommandManager {
         REMOVE_ORDER, ADD_DISH, SHOW_USERS, CHANGE_ROLE, ACCEPT_ORDER, CHANGE_LOCALE
     }
 
+    private static final Logger LOGGER = Logger.getRootLogger();
     private static final Map<CommandType, Command> commandMap;
 
     static {
@@ -36,7 +39,7 @@ public class CommandManager {
         try {
             commandType = CommandType.valueOf(commandName.toUpperCase());
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         return commandMap.get(commandType);

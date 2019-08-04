@@ -5,7 +5,6 @@ import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.Order;
 import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.util.PagePath;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,30 +20,29 @@ public class CheckOutCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        Order order = (Order) req.getSession().getAttribute("order");
+        Order order = (Order) req.getSession().getAttribute(getConst(ATR_ORDER));
         String address = req.getParameter(getConst(PAR_ADDRESS));
-        order.setIdClient((Integer)req.getSession().getAttribute("iduser"));
+        order.setIdClient((Integer)req.getSession().getAttribute(getConst(ATR_ID_USER)));
         order.setTime((new Date().toString()));
         order.setAddress(address);
 
-
         try {
             orderDAO.insert(order);
-            LOGGER.info("User " + "{id=" + order.getIdClient() + "} added order");
-            req.getSession().setAttribute("orderDishes", null);
-            List dishes = (List) req.getSession().getAttribute("dishes");
+            LOGGER.info(getConst(LOG_CHECK_OUT_ADD) + order.getIdClient());
+            req.getSession().setAttribute(getConst(ATR_ORDER_DISHES), null);
+            List dishes = (List) req.getSession().getAttribute(getConst(ATR_DISHES));
             HashMap<Integer, Integer> orderDishes = new HashMap<>();
             if (dishes != null) {
                 for (Object dish : dishes) {
                     orderDishes.put(((Dish) dish).getId(), 0);
                 }
-                req.getSession().setAttribute("orderDishes", orderDishes);
+                req.getSession().setAttribute(getConst(ATR_ORDER_DISHES), orderDishes);
             }
-            LOGGER.trace("Attribute 'orderDishes' cleared");
+            LOGGER.trace(getConst(LOG_CHECK_OUT_CLR));
         } catch (DAOException e) {
             LOGGER.error(e);
         }
 
-        return PagePath.MAIN;
+        return getConst(PAGE_MAIN);
     }
 }
