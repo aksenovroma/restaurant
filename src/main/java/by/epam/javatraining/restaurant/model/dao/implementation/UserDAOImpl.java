@@ -42,6 +42,17 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     private static final String SQL_GET_ROLE_BY_ID = "SELECT user_role.role " +
             "FROM user INNER JOIN user_role ON user.iduser = user_role.iduser WHERE user.iduser = ?";
 
+    private static final String PAR_ID_USER = "iduser";
+    private static final String PAR_NAME = "name";
+    private static final String PAR_LOGIN = "login";
+    private static final String PAR_PASSWORD = "password";
+    private static final String PAR_PHOTO = "photo";
+    private static final String PAR_ROLE = "role";
+
+    private static final String ERR_UPDATE_USER = "Couldn't update user";
+    private static final String ERR_INSERT_USER = "Couldn't insert user";
+    private static final String ERR_GET_USER = "Couldn't get user";
+
     @Override
     public void insert(Entity entity) throws UserDAOException {
         if (entity instanceof User) {
@@ -63,10 +74,10 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                 int affectedRowsUserRole = preparedStatementUserRole.executeUpdate();
                 connection.commit();
                 if (affectedRowsUser == 0 && affectedRowsUserRole == 0){
-                    throw new UserDAOException("Couldn't insert user");
+                    throw new UserDAOException(ERR_INSERT_USER);
                 }
             } catch (SQLException e) {
-                throw new UserDAOException("Couldn't update user" + e.getMessage());
+                throw new UserDAOException(ERR_INSERT_USER + e.getMessage());
             } finally {
                 returnConnection(connection);
             }
@@ -75,7 +86,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     @Override
     public void delete(int idUser) throws UserDAOException {
-            updateStatement(SQL_DELETE_USER, "Deleting user failed, no rows affected.", idUser);
+            updateStatement(SQL_DELETE_USER, idUser);
     }
 
     @Override
@@ -101,10 +112,10 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                 int affectedRowsUserRole = preparedStatementUserRole.executeUpdate();
                 connection.commit();
                 if (affectedRowsUser == 0 && affectedRowsUserRole == 0){
-                    throw new UserDAOException("Couldn't update user");
+                    throw new UserDAOException(ERR_UPDATE_USER);
                 }
             } catch (SQLException e) {
-                throw new UserDAOException("Couldn't update user" + e.getMessage());
+                throw new UserDAOException(ERR_UPDATE_USER + e.getMessage());
             } finally {
                 returnConnection(connection);
             }
@@ -113,7 +124,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     @Override
     public void updateUserRole(int idUser, UserRole userRole) throws UserDAOException {
-        updateStatement(SQL_UPDATE_USER_ROLE, "Couldn't update user role",
+        updateStatement(SQL_UPDATE_USER_ROLE,
                 userRole.getRole(),
                 idUser);
     }
@@ -147,7 +158,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                 PreparedStatement statement = prepareStatement(connection, SQL_GET_ROLE_BY_ID, false, idUser);
                 ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
-                role = resultSet.getString("role");
+                role = resultSet.getString(PAR_ROLE);
             }
         } catch (SQLException e) {
             throw new UserDAOException(e);
@@ -187,7 +198,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         return exist;
     }
 
-    private void updateStatement(String sql, String exceptionMessage, Object... values) throws UserDAOException{
+    private void updateStatement(String sql, Object... values) throws UserDAOException{
         Connection connection = getConnection();
 
         try (PreparedStatement preparedStatement = prepareStatement(connection,
@@ -195,12 +206,12 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             connection.setAutoCommit(false);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new UserDAOException(exceptionMessage);
+                throw new UserDAOException(ERR_UPDATE_USER);
             }
             connection.commit();
 
         } catch (SQLException e) {
-            throw new UserDAOException(exceptionMessage + e.getMessage());
+            throw new UserDAOException(ERR_UPDATE_USER + e.getMessage());
         } finally {
             returnConnection(connection);
         }
@@ -227,12 +238,12 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     private static User map(ResultSet resultSet) throws SQLException {
         User user = new User();
 
-        user.setId(resultSet.getInt("iduser"));
-        user.setName(resultSet.getString("name"));
-        user.setLogin(resultSet.getString("login"));
-        user.setPassword(resultSet.getString("password"));
-        user.setPhoto(resultSet.getString("photo"));
-        user.setUserRole(UserRole.valueOf(resultSet.getString("role").toUpperCase()));
+        user.setId(resultSet.getInt(PAR_ID_USER));
+        user.setName(resultSet.getString(PAR_NAME));
+        user.setLogin(resultSet.getString(PAR_LOGIN));
+        user.setPassword(resultSet.getString(PAR_PASSWORD));
+        user.setPhoto(resultSet.getString(PAR_PHOTO));
+        user.setUserRole(UserRole.valueOf(resultSet.getString(PAR_ROLE).toUpperCase()));
 
         return user;
     }

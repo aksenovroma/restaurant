@@ -6,6 +6,7 @@ public class Constant {
     private static ResourceBundle resourceBundle;
 
     //parameters
+    public static final String PAR_COMMAND = "par.command";
     public static final String PAR_NAME = "par.name";
     public static final String PAR_LOGIN = "par.login";
     public static final String PAR_PASSWORD = "par.password";
@@ -50,6 +51,7 @@ public class Constant {
     public static final String LOG_CHECK_OUT_ADD = "log.check_out_add";
     public static final String LOG_CHECK_OUT_CLR = "log.check_out_clr";
 
+
     //pages
     public static final String PAGE_MAIN = "page.main";
     public static final String PAGE_LOGIN = "page.login";
@@ -60,6 +62,12 @@ public class Constant {
     public static final String PAGE_CLIENT_ORDER = "page.client_order";
     public static final String PAGE_USERS_LIST = "page.users_list";
     public static final String PAGE_COURIER_ORDER = "page.courier_order";
+
+    //filter
+    public static final String LOG_CHARSET_FILTER_INIT = "log.charset_filter_init";
+    public static final String PAR_REQUEST_ENCODING = "par.request_encoding";
+    public static final String FILTER_ENCODING = "filter.encoding";
+    public static final String LOG_CHARSET_FILTER_DESTROY = "log.charset_filter_destroy";
 
     static {
         resourceBundle = ResourceBundle.getBundle("constant");

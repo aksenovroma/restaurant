@@ -52,6 +52,22 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
     private static final String SQL_UPDATE_COURIER = "UPDATE `order` SET idcourier = ? WHERE idorder = ?;";
 
+
+    private static final String ERR_UPDATE_ORDER = "Couldn't update order";
+    private static final String ERR_INSERT_ORDER = "Couldn't insert order";
+    private static final String ERR_GET_ORDER = "Couldn't get order";
+
+
+    private static final String PAR_ID_ORDER = "idorder";
+    private static final String PAR_ID_CLIENT = "idclient";
+    private static final String PAR_ID_COURIER = "idcourier";
+    private static final String PAR_TIME = "time";
+    private static final String PAR_STATE = "state";
+    private static final String PAR_TOTAL_PRICE = "totalprice";
+    private static final String PAR_TOTAL_WEIGHT = "totalweight";
+    private static final String PAR_ADDRESS = "addess";
+    private static final String PAR_ID_DISH = "iddish";
+
     @Override
     public void insert(Entity entity) throws OrderDAOException {
         if (entity instanceof Order) {
@@ -87,10 +103,10 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
                 connection.commit();
                 if (affectedRowsUser == 0 && affectedRowsUserRole == 0){
-                    throw new OrderDAOException("Couldn't insert order");
+                    throw new OrderDAOException(ERR_INSERT_ORDER);
                 }
             } catch (SQLException e) {
-                throw new OrderDAOException("Couldn't insert order" + e.getMessage());
+                throw new OrderDAOException(ERR_INSERT_ORDER + e.getMessage());
             } finally {
                 returnConnection(connection);
             }
@@ -99,17 +115,17 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
     @Override
     public void delete(int idClient) throws OrderDAOException {
-        updateStatement(SQL_DELETE_ORDER, "Couldn't delete order ", idClient);
+        updateStatement(SQL_DELETE_ORDER, idClient);
     }
 
     @Override
     public void updateOrderState(int idOrder, String state) throws OrderDAOException {
-        updateStatement(SQL_UPDATE_STATE, "Couldn't update order detail ", state, idOrder);
+        updateStatement(SQL_UPDATE_STATE, state, idOrder);
     }
 
     @Override
     public void updateIdCourier(int idOrder, int idCourier) throws OrderDAOException {
-        updateStatement(SQL_UPDATE_COURIER, "Couldn't update order ", idCourier, idOrder);
+        updateStatement(SQL_UPDATE_COURIER, idCourier, idOrder);
     }
 
     @Override
@@ -146,10 +162,10 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
                 connection.commit();
                 if (affectedRowsOrder == 0 || affectedRowsOrderDetail == 0){
-                    throw new OrderDAOException("Couldn't update order");
+                    throw new OrderDAOException(ERR_UPDATE_ORDER);
                 }
             } catch (SQLException e) {
-                throw new OrderDAOException("Couldn't update order" + e.getMessage());
+                throw new OrderDAOException(ERR_UPDATE_ORDER + e.getMessage());
             } finally {
                 returnConnection(connection);
             }
@@ -168,7 +184,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new OrderDAOException(e);
+            throw new OrderDAOException(ERR_GET_ORDER + e);
         } finally {
             returnConnection(connection);
         }
@@ -193,7 +209,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new OrderDAOException(e);
+            throw new OrderDAOException(ERR_GET_ORDER + e);
         } finally {
             returnConnection(connection);
         }
@@ -201,7 +217,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
         return orders;
     }
 
-    private void updateStatement(String sql, String exceptionMessage, Object... values) throws OrderDAOException{
+    private void updateStatement(String sql, Object... values) throws OrderDAOException{
         Connection connection = getConnection();
 
         try (PreparedStatement preparedStatement = prepareStatement(connection,
@@ -209,12 +225,12 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
             connection.setAutoCommit(false);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new OrderDAOException(exceptionMessage);
+                throw new OrderDAOException(ERR_UPDATE_ORDER);
             }
             connection.commit();
 
         } catch (SQLException e) {
-            throw new OrderDAOException(exceptionMessage + e.getMessage());
+            throw new OrderDAOException(e);
         } finally {
             returnConnection(connection);
         }
@@ -231,7 +247,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
                 order = map(resultSet);
             }
         } catch (SQLException e) {
-            throw new OrderDAOException("Couldn't get order " + e);
+            throw new OrderDAOException(ERR_GET_ORDER + e);
         } finally {
             returnConnection(connection);
         }
@@ -241,25 +257,25 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
     private static Order map(ResultSet resultSet) throws SQLException {
         Order order = new Order();
 
-        order.setId(resultSet.getInt("idorder"));
-        order.setIdClient(resultSet.getInt("idclient"));
-        order.setIdCourier(resultSet.getInt("idcourier"));
-        order.setTime(resultSet.getString("time"));
-        order.setOrderState(OrderState.valueOf(resultSet.getString("state").toUpperCase()));
-        order.setTotalPrice(resultSet.getDouble("totalprice"));
-        order.setTotalWeight(resultSet.getDouble("totalweight"));
-        order.setAddress(resultSet.getString("address"));
+        order.setId(resultSet.getInt(PAR_ID_ORDER));
+        order.setIdClient(resultSet.getInt(PAR_ID_CLIENT));
+        order.setIdCourier(resultSet.getInt(PAR_ID_COURIER));
+        order.setTime(resultSet.getString(PAR_TIME));
+        order.setOrderState(OrderState.valueOf(resultSet.getString(PAR_STATE).toUpperCase()));
+        order.setTotalPrice(resultSet.getDouble(PAR_TOTAL_PRICE));
+        order.setTotalWeight(resultSet.getDouble(PAR_TOTAL_WEIGHT));
+        order.setAddress(resultSet.getString(PAR_ADDRESS));
 
         Map<Integer, Integer> dishes = new HashMap<>();
-        int idDish = resultSet.getInt("iddish");
+        int idDish = resultSet.getInt(PAR_ID_DISH);
         int dishCount = 1;
         while (resultSet.next()) {
-            if (resultSet.getInt("idorder") == order.getId()) {
-                if (resultSet.getInt("iddish") == idDish) {
+            if (resultSet.getInt(PAR_ID_ORDER) == order.getId()) {
+                if (resultSet.getInt(PAR_ID_DISH) == idDish) {
                     dishCount++;
                 } else {
                     dishes.put(idDish, dishCount);
-                    idDish = resultSet.getInt("iddish");
+                    idDish = resultSet.getInt(PAR_ID_DISH);
                     dishCount = 1;
                 }
             } else {

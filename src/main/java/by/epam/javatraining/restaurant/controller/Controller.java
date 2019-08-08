@@ -24,7 +24,7 @@ public class Controller extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) {
-        String commandName = request.getParameter("command");
+        String commandName = request.getParameter(getConst(PAR_COMMAND));
 
         if (commandName != null) {
             Command command = CommandManager.getCommand(commandName);

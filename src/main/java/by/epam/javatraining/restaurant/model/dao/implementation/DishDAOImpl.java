@@ -41,6 +41,18 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
             "ON dish.iddish = dish_category.iddish " +
             "ORDER BY dish_category.category";
 
+    private static final String ERR_UPDATE_DISH = "Couldn't update dish";
+    private static final String ERR_INSERT_DISH = "Couldn't insert dish";
+    private static final String ERR_GET_DISH = "Couldn't get dish";
+
+    private static final String PAR_ID_DISH = "iddish";
+    private static final String PAR_NAME = "name";
+    private static final String PAR_PRICE = "price";
+    private static final String PAR_WEIGHT = "weight";
+    private static final String PAR_PHOTO = "photo";
+    private static final String PAR_DESCRIPTION = "description";
+    private static final String PAR_CATEGORY = "category";
+
     @Override
     public void insert(Entity entity) throws DishDAOException {
         if (entity instanceof Dish) {
@@ -63,10 +75,10 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
                 int affectedRowsDishCategory = preparedStatementDishCategory.executeUpdate();
                 connection.commit();
                 if (affectedRowsDish == 0 && affectedRowsDishCategory == 0){
-                    throw new DishDAOException("Couldn't insert dish");
+                    throw new DishDAOException(ERR_INSERT_DISH);
                 }
             } catch (SQLException e) {
-                throw new DishDAOException("Couldn't insert dish" + e.getMessage());
+                throw new DishDAOException(ERR_INSERT_DISH + e.getMessage());
             } finally {
                 returnConnection(connection);
             }
@@ -75,7 +87,7 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
 
     @Override
     public void delete(int idDish) throws DishDAOException {
-        updateStatement(SQL_DELETE_DISH, "Couldn't delete dish", idDish);
+        updateStatement(SQL_DELETE_DISH, idDish);
     }
 
     @Override
@@ -101,10 +113,10 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
                 int affectedRowsDishCategory = preparedStatementDishCategory.executeUpdate();
                 connection.commit();
                 if (affectedRowsDish == 0 && affectedRowsDishCategory == 0){
-                    throw new DishDAOException("Couldn't update dish");
+                    throw new DishDAOException(ERR_UPDATE_DISH);
                 }
             } catch (SQLException e) {
-                throw new DishDAOException("Couldn't update dish" + e.getMessage());
+                throw new DishDAOException(ERR_UPDATE_DISH + e.getMessage());
             } finally {
                 returnConnection(connection);
             }
@@ -113,7 +125,7 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
 
     @Override
     public void updateDishCategory(int idDish, DishCategory dishCategory) throws DishDAOException {
-        updateStatement(SQL_UPDATE_DISH_CATEGORY, "Couldn't update dish category",
+        updateStatement(SQL_UPDATE_DISH_CATEGORY,
                 dishCategory.getName(),
                 idDish
         );
@@ -131,7 +143,7 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DishDAOException(e);
+            throw new DishDAOException(ERR_GET_DISH + e);
         } finally {
             returnConnection(connection);
         }
@@ -149,7 +161,7 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
         return get(SQL_GET_DISH_BY_NAME, name);
     }
 
-    private void updateStatement(String sql, String exceptionMessage, Object... values) throws DishDAOException{
+    private void updateStatement(String sql, Object... values) throws DishDAOException{
         Connection connection = getConnection();
 
         try (PreparedStatement preparedStatement = prepareStatement(connection,
@@ -157,12 +169,12 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
             connection.setAutoCommit(false);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
-                throw new DishDAOException(exceptionMessage);
+                throw new DishDAOException(ERR_UPDATE_DISH);
             }
             connection.commit();
 
         } catch (SQLException e) {
-            throw new DishDAOException(exceptionMessage + e.getMessage());
+            throw new DishDAOException(e);
         } finally {
             returnConnection(connection);
         }
@@ -179,7 +191,7 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
                 dish = map(resultSet);
             }
         } catch (SQLException e) {
-            throw new DishDAOException(e);
+            throw new DishDAOException(ERR_GET_DISH + e);
         } finally {
             returnConnection(connection);
         }
@@ -189,13 +201,13 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
     private static Dish map(ResultSet resultSet) throws SQLException {
         Dish dish = new Dish();
 
-        dish.setId(resultSet.getInt("iddish"));
-        dish.setName(resultSet.getString("name"));
-        dish.setPrice(resultSet.getDouble("price"));
-        dish.setWeight(resultSet.getDouble("weight"));
-        dish.setPhoto(resultSet.getString("photo"));
-        dish.setDescription(resultSet.getString("description"));
-        dish.setDishCategory(DishCategory.valueOf(resultSet.getString("category").toUpperCase()));
+        dish.setId(resultSet.getInt(PAR_ID_DISH));
+        dish.setName(resultSet.getString(PAR_NAME));
+        dish.setPrice(resultSet.getDouble(PAR_PRICE));
+        dish.setWeight(resultSet.getDouble(PAR_WEIGHT));
+        dish.setPhoto(resultSet.getString(PAR_PHOTO));
+        dish.setDescription(resultSet.getString(PAR_DESCRIPTION));
+        dish.setDishCategory(DishCategory.valueOf(resultSet.getString(PAR_CATEGORY).toUpperCase()));
 
         return dish;
     }
