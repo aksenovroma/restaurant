@@ -1,12 +1,16 @@
 package by.epam.javatraining.restaurant.model.entity;
 
+import by.epam.javatraining.restaurant.util.Constant;
+
 import java.util.Objects;
+
+import static by.epam.javatraining.restaurant.util.Constant.*;
 
 public class User extends Entity{
     private String name;
     private String login;
     private String password;
-    private String photo = "https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png";
+    private String photo = getConst(USER_DEFAULT_PHOTO);
     private UserRole userRole = UserRole.CLIENT;
 
     public User() {}

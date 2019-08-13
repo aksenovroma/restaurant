@@ -55,6 +55,7 @@ public class Constant {
     //pages
     public static final String PAGE_MAIN = "page.main";
     public static final String PAGE_LOGIN = "page.login";
+    public static final String PAGE_INVALID_LOGIN = "page.invalid_login";
     public static final String PAGE_REGISTRATION = "page.registration";
     public static final String PAGE_MENU = "page.menu";
     public static final String PAGE_ACCOUNT = "page.account";
@@ -68,6 +69,8 @@ public class Constant {
     public static final String PAR_REQUEST_ENCODING = "par.request_encoding";
     public static final String FILTER_ENCODING = "filter.encoding";
     public static final String LOG_CHARSET_FILTER_DESTROY = "log.charset_filter_destroy";
+
+    public static final String USER_DEFAULT_PHOTO = "user.default_photo";
 
     static {
         resourceBundle = ResourceBundle.getBundle("constant");
