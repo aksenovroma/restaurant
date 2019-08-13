@@ -5,7 +5,7 @@ import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.DishDAOImpl;
 import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.UserRole;
-import by.epam.javatraining.restaurant.model.exception.DAOException;
+import by.epam.javatraining.restaurant.model.exception.tecnical.DAOException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

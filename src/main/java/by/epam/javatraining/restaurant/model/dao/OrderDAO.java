@@ -1,8 +1,7 @@
 package by.epam.javatraining.restaurant.model.dao;
 
 import by.epam.javatraining.restaurant.model.entity.Order;
-import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.model.exception.OrderDAOException;
+import by.epam.javatraining.restaurant.model.exception.tecnical.OrderDAOException;
 
 import java.util.List;
 

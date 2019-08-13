@@ -3,8 +3,7 @@ package by.epam.javatraining.restaurant.model.dao.implementation;
 import by.epam.javatraining.restaurant.model.dao.AbstractDAO;
 import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.entity.*;
-import by.epam.javatraining.restaurant.model.exception.OrderDAOException;
-import by.epam.javatraining.restaurant.model.exception.UserDAOException;
+import by.epam.javatraining.restaurant.model.exception.tecnical.OrderDAOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,11 +51,9 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
     private static final String SQL_UPDATE_COURIER = "UPDATE `order` SET idcourier = ? WHERE idorder = ?;";
 
-
     private static final String ERR_UPDATE_ORDER = "Couldn't update order";
     private static final String ERR_INSERT_ORDER = "Couldn't insert order";
     private static final String ERR_GET_ORDER = "Couldn't get order";
-
 
     private static final String PAR_ID_ORDER = "idorder";
     private static final String PAR_ID_CLIENT = "idclient";
@@ -65,7 +62,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
     private static final String PAR_STATE = "state";
     private static final String PAR_TOTAL_PRICE = "totalprice";
     private static final String PAR_TOTAL_WEIGHT = "totalweight";
-    private static final String PAR_ADDRESS = "addess";
+    private static final String PAR_ADDRESS = "address";
     private static final String PAR_ID_DISH = "iddish";
 
     @Override

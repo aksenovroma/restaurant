@@ -21,7 +21,6 @@
     <fmt:message key="locale.client_order.not_accepted" var="not_accepted"/>
     <fmt:message key="locale.client_order.courier_id" var="courier_id"/>
     <fmt:message key="locale.client_order.remove_order" var="remove_order"/>
-
 </fmt:bundle>
 
 <html>

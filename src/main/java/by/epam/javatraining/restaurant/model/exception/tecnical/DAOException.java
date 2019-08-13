@@ -1,6 +1,8 @@
-package by.epam.javatraining.restaurant.model.exception;
+package by.epam.javatraining.restaurant.model.exception.tecnical;
 
-public class DAOException extends Exception {
+import by.epam.javatraining.restaurant.model.exception.RestaurantException;
+
+public class DAOException extends RestaurantException {
     public DAOException() {
     }
 

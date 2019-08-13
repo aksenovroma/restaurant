@@ -2,7 +2,7 @@ package by.epam.javatraining.restaurant.command;
 
 import by.epam.javatraining.restaurant.model.dao.UserDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.UserDAOImpl;
-import by.epam.javatraining.restaurant.model.exception.DAOException;
+import by.epam.javatraining.restaurant.model.exception.tecnical.DAOException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

@@ -7,16 +7,8 @@ import by.epam.javatraining.restaurant.model.dao.implementation.DishDAOImpl;
 import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
 import by.epam.javatraining.restaurant.model.dao.implementation.UserDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.*;
-import by.epam.javatraining.restaurant.model.exception.DAOException;
+import by.epam.javatraining.restaurant.model.exception.tecnical.DAOException;
 
-import javax.jws.soap.SOAPBinding;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.*;
 
 public class Main {
@@ -32,13 +24,7 @@ public class Main {
             map.put(2, 2);
             map.put(4, 2);
 
-            User client = userDAO.getByLogin("romashka@mail.ru");
-            User waiter = (User) userDAO.getById(10);
-
-            Date date = new Date();
-
-            Order order = new Order(880, 230, map);
-            orderDAO.updateOrderState(36, "accepted");
+            System.out.println(orderDAO.getAll());
 
         } catch (DAOException e) {
             e.printStackTrace();

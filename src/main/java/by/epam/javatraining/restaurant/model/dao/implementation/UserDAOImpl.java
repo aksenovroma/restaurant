@@ -5,7 +5,7 @@ import by.epam.javatraining.restaurant.model.dao.UserDAO;
 import by.epam.javatraining.restaurant.model.entity.Entity;
 import by.epam.javatraining.restaurant.model.entity.User;
 import by.epam.javatraining.restaurant.model.entity.UserRole;
-import by.epam.javatraining.restaurant.model.exception.UserDAOException;
+import by.epam.javatraining.restaurant.model.exception.tecnical.UserDAOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

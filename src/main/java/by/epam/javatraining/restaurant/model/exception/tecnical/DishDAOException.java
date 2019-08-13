@@ -1,4 +1,4 @@
-package by.epam.javatraining.restaurant.model.exception;
+package by.epam.javatraining.restaurant.model.exception.tecnical;
 
 public class DishDAOException extends DAOException {
     public DishDAOException() {

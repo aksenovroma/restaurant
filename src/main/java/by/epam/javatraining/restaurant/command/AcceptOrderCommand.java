@@ -3,7 +3,7 @@ package by.epam.javatraining.restaurant.command;
 import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.OrderState;
-import by.epam.javatraining.restaurant.model.exception.DAOException;
+import by.epam.javatraining.restaurant.model.exception.tecnical.DAOException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

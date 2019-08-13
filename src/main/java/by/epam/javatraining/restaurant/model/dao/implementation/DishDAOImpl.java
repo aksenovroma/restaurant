@@ -4,9 +4,7 @@ package by.epam.javatraining.restaurant.model.dao.implementation;
 import by.epam.javatraining.restaurant.model.dao.AbstractDAO;
 import by.epam.javatraining.restaurant.model.dao.DishDAO;
 import by.epam.javatraining.restaurant.model.entity.*;
-import by.epam.javatraining.restaurant.model.exception.DAOException;
-import by.epam.javatraining.restaurant.model.exception.DishDAOException;
-import by.epam.javatraining.restaurant.model.exception.UserDAOException;
+import by.epam.javatraining.restaurant.model.exception.tecnical.DishDAOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,25 +16,25 @@ import java.util.List;
 import static by.epam.javatraining.restaurant.model.dao.DAOUtil.prepareStatement;
 
 public class DishDAOImpl extends AbstractDAO implements DishDAO {
-    public static final String SQL_INSERT_DISH = "insert into dish (name, price, weight, photo, description) values (?, ?, ?, ?, ?);";
+    private static final String SQL_INSERT_DISH = "insert into dish (name, price, weight, photo, description) values (?, ?, ?, ?, ?);";
 
-    public static final String SQL_INSERT_DISH_CATEGORY = "insert into dish_category (iddish, category) values (last_insert_id(), ?);";
+    private static final String SQL_INSERT_DISH_CATEGORY = "insert into dish_category (iddish, category) values (last_insert_id(), ?);";
 
-    public static final String SQL_DELETE_DISH = "DELETE FROM dish WHERE iddish = ?;";
+    private static final String SQL_DELETE_DISH = "DELETE FROM dish WHERE iddish = ?;";
 
-    public static final String SQL_UPDATE_DISH = "UPDATE dish SET name=?, price=?, weight=?, photo=?, description=? WHERE iddish= ?;";
+    private static final String SQL_UPDATE_DISH = "UPDATE dish SET name=?, price=?, weight=?, photo=?, description=? WHERE iddish= ?;";
 
-    public static final String SQL_UPDATE_DISH_CATEGORY = "UPDATE dish_category SET category=? WHERE iddish = ?;";
+    private static final String SQL_UPDATE_DISH_CATEGORY = "UPDATE dish_category SET category=? WHERE iddish = ?;";
 
-    public static final String SQL_GET_DISH_BY_ID = "SELECT dish.iddish, name, price, weight, photo," +
+    private static final String SQL_GET_DISH_BY_ID = "SELECT dish.iddish, name, price, weight, photo," +
             "description, dish_category.category FROM dish INNER JOIN dish_category " +
             "ON dish.iddish = dish_category.iddish WHERE dish.iddish = ?";
 
-    public static final String SQL_GET_DISH_BY_NAME = "SELECT dish.iddish, name, price, weight, photo," +
+    private static final String SQL_GET_DISH_BY_NAME = "SELECT dish.iddish, name, price, weight, photo," +
             "description, dish_category.category FROM dish INNER JOIN dish_category " +
             "ON dish.iddish = dish_category.iddish WHERE dish.name = ?";
 
-    public static final String SQL_GET_ALL_DISHES = "SELECT dish.iddish, name, price, weight, photo," +
+    private static final String SQL_GET_ALL_DISHES = "SELECT dish.iddish, name, price, weight, photo," +
             "description, dish_category.category FROM dish INNER JOIN dish_category " +
             "ON dish.iddish = dish_category.iddish " +
             "ORDER BY dish_category.category";
