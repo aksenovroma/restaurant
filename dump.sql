@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
 --
--- Host: localhost    Database: restaurant
+-- Host: 127.0.0.1    Database: restaurant
 -- ------------------------------------------------------
 -- Server version	5.7.27-0ubuntu0.19.04.1
 
@@ -31,7 +31,7 @@ CREATE TABLE `dish` (
   `description` text NOT NULL,
   PRIMARY KEY (`iddish`),
   UNIQUE KEY `dish_name_uindex` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `dish` (
 
 LOCK TABLES `dish` WRITE;
 /*!40000 ALTER TABLE `dish` DISABLE KEYS */;
-INSERT INTO `dish` VALUES (5,'Чизболлы',7,250,'https://www.menu.by/resources/default/img/restaurant_products/small/1537278003-6014.jpeg','сырно-ветчинные шарики в панировке'),(6,'Моцарелла фри',9.5,200,'https://www.menu.by/resources/default/img/restaurant_products/small/1537278199-1376.jpeg','палочки Моцареллы'),(7,'Салат Венский',6,260,'https://www.menu.by/resources/default/img/restaurant_products/small/1537278573-4237.jpeg','салат из картофеля с сосисками и зеленью'),(8,'Суп с венскими колбасками\n',6,260,'https://www.menu.by/resources/default/img/restaurant_products/small/1537278729-0114.jpeg','сытный суп с кусочками венских колбасок'),(9,'Мини штрудели',8,115,'https://www.menu.by/resources/default/img/restaurant_products/small/1537281466-3874.jpeg','жареные во фритюре минипирожки'),(10,'Торт Шварцвальд\n',6,170,'https://www.menu.by/resources/default/img/restaurant_products/small/1537281610-1126.jpeg','шоколадный торт с вишневым ликером'),(11,'Кока-кола',2,500,'https://edaedet.ru/upload/iblock/29e/29ea7fc0e3d1bb35ca90016040ede84e.jpg','прохладный напиток'),(14,'Морс',3.5,500,'https://teremok.ru/upload/iblock/e87/c3a61684-bb10-11e8-af7c-001517db825c.png','из свежей клюквы');
+INSERT INTO `dish` VALUES (15,'Морской сет',11,670,'https://avatanplus.com/files/resources/original/575c3d75994521554050137c.png','Тарелка свежих морепродуктов'),(16,'Мясной сет',10.5,700,'http://mixcaffe.su/img/fotki/6.png','Мясо, приготовленное на углях'),(17,'Фасоль с грибами',4,320,'https://fasol.tv/upload/iblock/571/571a203a7d50e585b165a07bad5a5310.png','Обжареные фасоль с шампиньонами'),(18,'Окрошка',3.5,350,'http://kurochka-r.ru/upload/resize_cache/iblock/6d2/450_450_1/6d2d2dacadba339b5121c254d74c4529.png','Свежая окрошка на кефире'),(19,'Куриный бульон',2.5,300,'http://kurochka-r.ru/upload/resize_cache/iblock/b88/450_450_1/b88feef7bfdf47928c37f93e8e9846ad.png','Куриный бульон с яйцом и зеленью'),(20,'Солянка',3.2,250,'http://kurochka-r.ru/upload/resize_cache/iblock/a5b/450_450_1/a5b595facf661119d8897f84ce75e46a.png','С маслинами и сметаной'),(21,'Овощной суп',2.7,320,'http://www.karotes.lv/content/img/zupas/__500/vistas_galas_zupa.png','С пастой и рисом'),(22,'Овощное ассорти',2.4,300,'https://vivaitalia.com.ua/wp-content/uploads/2017/02/92854-405-336-s_2.png','Помидоры, перец, огурцы и зелень'),(24,'Чизкейк',2.4,100,'https://img.pngio.com/gluten-free-wow-factor-desserts-png-desserts-900_900.png','С лесными ягодами'),(25,'Торт \"Клипарт\"',2.6,110,'https://i-love-png.com/images/adj_7_gfchocalmtortebabycake.png','С шоколадным кремом'),(27,'Кекс',2,80,'https://cdn.pixabay.com/photo/2017/09/07/11/25/cupcake-2724786_960_720.png','С заварным кремом'),(28,'Суфле',2.5,120,'https://nicolukas.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/m/i/mini_agraz_1.png','С малиной и фруктовым желе'),(29,'Морс',1.5,300,'http://burgervsem.ru/media/plg_system_vmmagiczoom/magictoolbox_cache/80543c918ed05ba09145ba56f4b3651f/8/2/823/thumb500x500/3671620082/mors1.png','Из натуральной клюквы'),(30,'Сок \"Мультифрукт\"',2,300,'http://www.dobry.ru/assets-new/images/products/multifruit/image-2.png','С фруктовой мякотью');
 /*!40000 ALTER TABLE `dish` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `dish_category` (
 
 LOCK TABLES `dish_category` WRITE;
 /*!40000 ALTER TABLE `dish_category` DISABLE KEYS */;
-INSERT INTO `dish_category` VALUES (5,'appetizer'),(6,'appetizer'),(7,'appetizer'),(8,'soup'),(9,'dessert'),(10,'dessert'),(11,'drink'),(14,'drink');
+INSERT INTO `dish_category` VALUES (15,'appetizer'),(16,'appetizer'),(17,'appetizer'),(18,'soup'),(19,'soup'),(20,'soup'),(21,'soup'),(22,'appetizer'),(24,'dessert'),(25,'dessert'),(27,'dessert'),(28,'dessert'),(29,'drink'),(30,'drink');
 /*!40000 ALTER TABLE `dish_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +89,7 @@ CREATE TABLE `order` (
   KEY `fk_order_2_idx` (`idcourier`),
   CONSTRAINT `fk_order_1` FOREIGN KEY (`idclient`) REFERENCES `user` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_order_2` FOREIGN KEY (`idcourier`) REFERENCES `user` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (43,13,10,16.5,450,'Sun Aug 04 01:23:16 MSK 2019','Сурганова 37 к 2'),(44,13,11,21.5,1280,'Sun Aug 04 01:23:35 MSK 2019','Мира 15'),(45,15,11,11.5,700,'Sun Aug 04 01:24:34 MSK 2019','Василевцы 13'),(46,13,11,9.5,200,'Sun Aug 04 19:22:17 MSK 2019','Мира 16');
+INSERT INTO `order` VALUES (43,13,10,16.5,450,'Sun Aug 04 01:23:16 MSK 2019','Сурганова 37 к 2'),(44,13,11,21.5,1280,'Sun Aug 04 01:23:35 MSK 2019','Мира 15'),(45,15,11,11.5,700,'Sun Aug 04 01:24:34 MSK 2019','Василевцы 13'),(46,13,11,9.5,200,'Sun Aug 04 19:22:17 MSK 2019','Мира 16'),(47,15,1,23.7,1730,'Wed Aug 14 12:24:43 MSK 2019','ул Василевцы 12 кв 34'),(48,21,1,17.1,1130,'Wed Aug 14 12:33:14 MSK 2019','ул Еронько 11 кв 63'),(49,21,1,4.9,420,'Wed Aug 14 12:33:56 MSK 2019','ул Еронько 11 кв 63');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +125,7 @@ CREATE TABLE `order_detail` (
 
 LOCK TABLES `order_detail` WRITE;
 /*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
-INSERT INTO `order_detail` VALUES (43,5),(43,6),(44,7),(44,7),(44,7),(44,14),(45,6),(45,11),(46,6);
+INSERT INTO `order_detail` VALUES (47,16),(47,17),(47,20),(47,27),(47,27),(47,30),(48,16),(48,17),(48,25),(49,22),(49,28);
 /*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +150,7 @@ CREATE TABLE `order_state` (
 
 LOCK TABLES `order_state` WRITE;
 /*!40000 ALTER TABLE `order_state` DISABLE KEYS */;
-INSERT INTO `order_state` VALUES (43,'accepted'),(44,'accepted'),(45,'accepted'),(46,'accepted');
+INSERT INTO `order_state` VALUES (43,'accepted'),(44,'accepted'),(45,'accepted'),(46,'accepted'),(47,'not_accepted'),(48,'not_accepted'),(49,'not_accepted');
 /*!40000 ALTER TABLE `order_state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +169,7 @@ CREATE TABLE `user` (
   `photo` text NOT NULL,
   PRIMARY KEY (`iduser`),
   UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +178,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'empty','empty','empty','empty'),(2,'admin','admin','admin','https://www.multipeers.itpeers.com/wp-content/uploads/2017/02/icone-2.png'),(10,'Миша','misha@mail.ru','ytrewq','link5'),(11,'Рома','romashka@mail.ru','qwerty','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(12,'Дима','dima@mail.ru','123','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(13,'Маша','ria@mail.ru','123','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(14,'Хрысціна','hris@mail.ru','123','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(15,'Андрей','dron@mail.ru','123','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(16,'Рома','romochka-aksenov2014@mail.ru','1234567890йцукен','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(17,'Пётр','petr@mail.ru','111','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png');
+INSERT INTO `user` VALUES (1,'empty','empty','empty','empty'),(2,'admin','admin','admin','https://www.multipeers.itpeers.com/wp-content/uploads/2017/02/icone-2.png'),(10,'Миша','misha@mail.ru','ytrewq','link5'),(11,'Рома','romashka@mail.ru','qwerty','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(12,'Дима','dima@mail.ru','123','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(13,'Маша','ria@mail.ru','123','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(14,'Хрысціна','hris@mail.ru','123','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(15,'Андрей','dron@mail.ru','123','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(17,'Пётр','petr@mail.ru','111','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(20,'Oleg','oleg@gmail.com','oleg','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png'),(21,'Галя','galya@mail.by','qwerty','https://www.greenmountainenergy.com/wp-content/uploads/2017/05/my-account-nav-cta@2x.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +203,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (1,'courier'),(2,'admin'),(10,'courier'),(11,'courier'),(12,'client'),(13,'client'),(14,'admin'),(15,'client'),(16,'client'),(17,'client');
+INSERT INTO `user_role` VALUES (1,'courier'),(2,'admin'),(10,'courier'),(11,'courier'),(12,'client'),(13,'client'),(14,'admin'),(15,'client'),(17,'client'),(20,'client'),(21,'client');
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -216,4 +216,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-13 12:05:35
+-- Dump completed on 2019-08-14 17:49:38
