@@ -25,10 +25,9 @@ public class Main {
             map.put(2, 2);
             map.put(4, 2);
 
-            System.out.println(orderDAO.getAll());
-            String str = "<h1>AASd</h1>";
-            str = InputDefence.scriptPrevention(str);
-            System.out.println(str);
+            String str = "Окрошка";
+            System.out.println(dishDAO.existName(str));
+
         } catch (DAOException e) {
             e.printStackTrace();
         }

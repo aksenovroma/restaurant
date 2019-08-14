@@ -2,7 +2,6 @@ package by.epam.javatraining.restaurant.model.validator;
 
 import by.epam.javatraining.restaurant.model.dao.implementation.UserDAOImpl;
 import by.epam.javatraining.restaurant.model.exception.tecnical.UserDAOException;
-import by.epam.javatraining.restaurant.util.InputDefence;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +18,8 @@ public class SignUpValidator implements Validator {
         boolean result = false;
 
         String name = req.getParameter(getConst(PAR_NAME));
-        name = InputDefence.scriptPrevention(name);
         String login = req.getParameter(getConst(PAR_LOGIN));
-        login = InputDefence.scriptPrevention(login);
         String password = req.getParameter(getConst(PAR_PASSWORD));
-        password = InputDefence.scriptPrevention(password);
         LOGGER.trace(getConst(LOG_SIGN_UP_LOGIN) + login);
 
         if (name != null && login != null && password != null) {

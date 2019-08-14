@@ -83,7 +83,7 @@ public class DishActionCommand implements Command {
                 return pagePath;
             } else if (removeDishFromMenu != null) {
                 try {
-                    dishDAO.delete(Integer.valueOf(removeDishFromMenu));
+                    dishDAO.delete(Integer.parseInt(removeDishFromMenu));
                     req.getSession().setAttribute(getConst(ATR_DISHES), dishDAO.getAll());
                 } catch (DAOException e) {
                     LOGGER.error(e);

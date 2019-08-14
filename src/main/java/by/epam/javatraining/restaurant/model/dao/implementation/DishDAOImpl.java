@@ -39,6 +39,9 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
             "ON dish.iddish = dish_category.iddish " +
             "ORDER BY dish_category.category";
 
+    private static final String SQL_EXIST_NAME =
+            "SELECT iddish FROM dish WHERE name = ?";
+
     private static final String ERR_UPDATE_DISH = "Couldn't update dish";
     private static final String ERR_INSERT_DISH = "Couldn't insert dish";
     private static final String ERR_GET_DISH = "Couldn't get dish";
@@ -157,6 +160,25 @@ public class DishDAOImpl extends AbstractDAO implements DishDAO {
     @Override
     public Dish getByName(String name) throws DishDAOException {
         return get(SQL_GET_DISH_BY_NAME, name);
+    }
+
+    @Override
+    public boolean existName(String name) throws DishDAOException{
+        boolean exist;
+
+        Connection connection = getConnection();
+
+        try (
+                PreparedStatement statement = prepareStatement(connection, SQL_EXIST_NAME, false, name);
+                ResultSet resultSet = statement.executeQuery()) {
+            exist = resultSet.next();
+        } catch (SQLException e) {
+            throw new DishDAOException(e);
+        } finally {
+            returnConnection(connection);
+        }
+
+        return exist;
     }
 
     private void updateStatement(String sql, Object... values) throws DishDAOException{

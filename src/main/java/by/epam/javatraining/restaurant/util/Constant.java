@@ -64,6 +64,8 @@ public class Constant {
     public static final String PAGE_CLIENT_ORDER = "page.client_order";
     public static final String PAGE_USERS_LIST = "page.users_list";
     public static final String PAGE_COURIER_ORDER = "page.courier_order";
+    public static final String PAGE_ADD_DISH = "page.add_dish";
+    public static final String PAGE_INVALID_ADD_DISH = "page.invalid_add_dish";
 
     //filter
     public static final String LOG_CHARSET_FILTER_INIT = "log.charset_filter_init";

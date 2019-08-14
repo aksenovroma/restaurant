@@ -5,6 +5,9 @@ import by.epam.javatraining.restaurant.model.dao.implementation.DishDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.DishCategory;
 import by.epam.javatraining.restaurant.model.exception.tecnical.DAOException;
+import by.epam.javatraining.restaurant.model.validator.Validator;
+import by.epam.javatraining.restaurant.model.validator.ValidatorFactory;
+import by.epam.javatraining.restaurant.util.InputDefence;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,21 +20,30 @@ public class AddDishCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        DishCategory dishCategory = DishCategory.valueOf(req.getParameter(getConst(PAR_CATEGORY)).toUpperCase());
-        String name = req.getParameter(getConst(PAR_NAME));
-        double price = Double.parseDouble(req.getParameter(getConst(PAR_PRICE)));
-        double weight = Double.parseDouble(req.getParameter(getConst(PAR_WEIGHT)));
-        String photo = req.getParameter(getConst(PAR_IMAGE_URL));
-        String description = req.getParameter(getConst(PAR_DESCRIPTION));
+        String page = getConst(PAGE_INVALID_ADD_DISH);
+        Validator validator = ValidatorFactory.getValidator().getAddDishValidator();
 
-        Dish dish = new Dish(name, price, weight, photo, description, dishCategory);
+        if (validator.validate(req)) {
+            DishCategory dishCategory = DishCategory.valueOf(req.getParameter(getConst(PAR_CATEGORY)).toUpperCase());
+            double price = Double.parseDouble(req.getParameter(getConst(PAR_PRICE)));
+            double weight = Double.parseDouble(req.getParameter(getConst(PAR_WEIGHT)));
+            String name = req.getParameter(getConst(PAR_NAME));
+            name = InputDefence.scriptPrevention(name);
+            String photo = req.getParameter(getConst(PAR_IMAGE_URL));
+            photo = InputDefence.scriptPrevention(photo);
+            String description = req.getParameter(getConst(PAR_DESCRIPTION));
+            description = InputDefence.scriptPrevention(description);
 
-        try {
-            dishDAO.insert(dish);
-            req.getSession().setAttribute(getConst(ATR_DISHES), dishDAO.getAll());
-        } catch (DAOException e) {
-            LOGGER.error(e);
+            Dish dish = new Dish(name, price, weight, photo, description, dishCategory);
+
+            try {
+                dishDAO.insert(dish);
+                req.getSession().setAttribute(getConst(ATR_DISHES), dishDAO.getAll());
+                page = getConst(PAGE_MENU);
+            } catch (DAOException e) {
+                LOGGER.error(e);
+            }
         }
-        return getConst(PAGE_MENU);
+        return page;
     }
 }

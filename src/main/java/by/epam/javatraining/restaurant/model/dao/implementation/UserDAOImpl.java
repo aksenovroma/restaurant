@@ -115,7 +115,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                     throw new UserDAOException(ERR_UPDATE_USER);
                 }
             } catch (SQLException e) {
-                throw new UserDAOException(ERR_UPDATE_USER + e.getMessage());
+                throw new UserDAOException(ERR_UPDATE_USER + e);
             } finally {
                 returnConnection(connection);
             }
@@ -141,7 +141,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new UserDAOException(e);
+            throw new UserDAOException(ERR_GET_USER + e);
         } finally {
             returnConnection(connection);
         }
@@ -161,7 +161,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                 role = resultSet.getString(PAR_ROLE);
             }
         } catch (SQLException e) {
-            throw new UserDAOException(e);
+            throw new UserDAOException(ERR_GET_USER + e);
         } finally {
             returnConnection(connection);
         }

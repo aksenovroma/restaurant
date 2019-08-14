@@ -8,4 +8,6 @@ public interface DishDAO extends DAO{
     Dish getByName(String name) throws DishDAOException;
 
     void updateDishCategory(int idDish, DishCategory dishCategory) throws DishDAOException;
+
+    boolean existName(String name) throws DishDAOException;
 }

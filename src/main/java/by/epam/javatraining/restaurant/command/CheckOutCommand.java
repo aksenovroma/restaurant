@@ -5,6 +5,7 @@ import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.Order;
 import by.epam.javatraining.restaurant.model.exception.tecnical.DAOException;
+import by.epam.javatraining.restaurant.util.InputDefence;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,10 @@ public class CheckOutCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         Order order = (Order) req.getSession().getAttribute(getConst(ATR_ORDER));
+
         String address = req.getParameter(getConst(PAR_ADDRESS));
+        address = InputDefence.scriptPrevention(address);
+
         order.setIdClient((Integer)req.getSession().getAttribute(getConst(ATR_ID_USER)));
         order.setTime((new Date().toString()));
         order.setAddress(address);

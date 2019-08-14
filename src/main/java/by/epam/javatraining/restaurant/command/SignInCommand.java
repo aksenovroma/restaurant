@@ -6,6 +6,7 @@ import by.epam.javatraining.restaurant.model.entity.User;
 import by.epam.javatraining.restaurant.model.exception.tecnical.UserDAOException;
 import by.epam.javatraining.restaurant.model.validator.Validator;
 import by.epam.javatraining.restaurant.model.validator.ValidatorFactory;
+import by.epam.javatraining.restaurant.util.InputDefence;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,9 @@ public class SignInCommand implements Command {
 
         if (validator.validate(req)) {
             try {
-                User user = userDAO.getByLogin(req.getParameter(getConst(PAR_LOGIN)));
+                String login = req.getParameter(getConst(PAR_LOGIN));
+                login = InputDefence.scriptPrevention(login);
+                User user = userDAO.getByLogin(login);
 
                 req.getSession().setAttribute(getConst(ATR_ID_USER), user.getId());
                 req.getSession().setAttribute(getConst(ATR_USER_NAME), user.getName());
