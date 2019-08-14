@@ -19,8 +19,8 @@ public class AddDishCommand implements Command {
     public String execute(HttpServletRequest req) {
         DishCategory dishCategory = DishCategory.valueOf(req.getParameter(getConst(PAR_CATEGORY)).toUpperCase());
         String name = req.getParameter(getConst(PAR_NAME));
-        double price = Double.valueOf(req.getParameter(getConst(PAR_PRICE)));
-        double weight = Double.valueOf(req.getParameter(getConst(PAR_WEIGHT)));
+        double price = Double.parseDouble(req.getParameter(getConst(PAR_PRICE)));
+        double weight = Double.parseDouble(req.getParameter(getConst(PAR_WEIGHT)));
         String photo = req.getParameter(getConst(PAR_IMAGE_URL));
         String description = req.getParameter(getConst(PAR_DESCRIPTION));
 

@@ -8,6 +8,7 @@ import by.epam.javatraining.restaurant.model.dao.implementation.OrderDAOImpl;
 import by.epam.javatraining.restaurant.model.dao.implementation.UserDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.*;
 import by.epam.javatraining.restaurant.model.exception.tecnical.DAOException;
+import by.epam.javatraining.restaurant.util.InputDefence;
 
 import java.util.*;
 
@@ -25,7 +26,9 @@ public class Main {
             map.put(4, 2);
 
             System.out.println(orderDAO.getAll());
-
+            String str = "<h1>AASd</h1>";
+            str = InputDefence.scriptPrevention(str);
+            System.out.println(str);
         } catch (DAOException e) {
             e.printStackTrace();
         }

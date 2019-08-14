@@ -57,6 +57,7 @@ public class Constant {
     public static final String PAGE_LOGIN = "page.login";
     public static final String PAGE_INVALID_LOGIN = "page.invalid_login";
     public static final String PAGE_REGISTRATION = "page.registration";
+    public static final String PAGE_INVALID_REGISTRATION = "page.invalid_registration";
     public static final String PAGE_MENU = "page.menu";
     public static final String PAGE_ACCOUNT = "page.account";
     public static final String PAGE_RESERVATION = "page.reservation";

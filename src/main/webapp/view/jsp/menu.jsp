@@ -62,20 +62,19 @@
                 <div class="menu_dish">
                     <div class="menu_dish_category">
                         <c:choose>
-                            <c:when test="${dish.dishCategory} == 'appetizer'">
+                            <c:when test="${dish.dishCategory == 'APPETIZER'}">
                                 <c:out value="${appetizer}"/>
                             </c:when>
-                            <c:when test="${dish.dishCategory} == 'dessert'">
+                            <c:when test="${dish.dishCategory == 'DESSERT'}">
                                 <c:out value="${dessert}"/>
                             </c:when>
-                            <c:when test="${dish.dishCategory} == 'soup'">
+                            <c:when test="${dish.dishCategory == 'SOUP'}">
                                 <c:out value="${soup}"/>
                             </c:when>
-                            <c:when test="${dish.dishCategory} == 'drink'">
+                            <c:when test="${dish.dishCategory == 'DRINK'}">
                                 <c:out value="${drink}"/>
                             </c:when>
                         </c:choose>
-                        <c:out value="${dish.dishCategory}"/>
                     </div>
                     <div>
                         <div>
@@ -118,7 +117,9 @@
                             <c:if test="${sessionScope.role == 'admin'}">
                                 <div>
                                     <button class="client_orders_btn_remove" type="submit" name="remove_dish_action"
-                                            value="${dish.id}">${remove}</button>
+                                            value="${dish.id}">
+                                            ${remove}
+                                    </button>
                                 </div>
                             </c:if>
                         </c:if>

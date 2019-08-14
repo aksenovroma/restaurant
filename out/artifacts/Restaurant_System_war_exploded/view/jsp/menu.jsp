@@ -17,6 +17,10 @@
     <fmt:message key="locale.menu.weight" var="weihgt"/>
     <fmt:message key="locale.menu.price" var="price"/>
     <fmt:message key="locale.menu.remove" var="remove"/>
+    <fmt:message key="locale.menu.category.appetizer" var="appetizer"/>
+    <fmt:message key="locale.menu.category.soup" var="soup"/>
+    <fmt:message key="locale.menu.category.dessert" var="dessert"/>
+    <fmt:message key="locale.menu.category.drink" var="drink"/>
 </fmt:bundle>
 
 <html>
@@ -57,7 +61,20 @@
             <c:forEach items="${sessionScope.dishes}" var="dish">
                 <div class="menu_dish">
                     <div class="menu_dish_category">
-                        <c:out value="${dish.dishCategory}"/>
+                        <c:choose>
+                            <c:when test="${dish.dishCategory == 'APPETIZER'}">
+                                <c:out value="${appetizer}"/>
+                            </c:when>
+                            <c:when test="${dish.dishCategory == 'DESSERT'}">
+                                <c:out value="${dessert}"/>
+                            </c:when>
+                            <c:when test="${dish.dishCategory == 'SOUP'}">
+                                <c:out value="${soup}"/>
+                            </c:when>
+                            <c:when test="${dish.dishCategory == 'DRINK'}">
+                                <c:out value="${drink}"/>
+                            </c:when>
+                        </c:choose>
                     </div>
                     <div>
                         <div>
@@ -100,7 +117,9 @@
                             <c:if test="${sessionScope.role == 'admin'}">
                                 <div>
                                     <button class="client_orders_btn_remove" type="submit" name="remove_dish_action"
-                                            value="${dish.id}">${remove}</button>
+                                            value="${dish.id}">
+                                            ${remove}
+                                    </button>
                                 </div>
                             </c:if>
                         </c:if>
