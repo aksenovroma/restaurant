@@ -63,8 +63,8 @@ public class DishActionCommand implements Command {
                     }
 
                     order.setDishes(dishes);
-                    order.setTotalPrice(orderManager.totalPrice(order, req));
-                    order.setTotalWeight(orderManager.totalWeight(order, req));
+                    order.setTotalPrice(orderManager.calcTotalPrice(order, req));
+                    order.setTotalWeight(orderManager.calcTotalWeight(order, req));
                     req.getSession().setAttribute(getConst(ATR_ORDER), order);
                     pagePath = getConst(PAGE_RESERVATION);
                     return pagePath;

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import static by.epam.javatraining.restaurant.util.Constant.*;
 
 public class SignInValidator implements Validator {
-    private static final Logger LOGGER = Logger.getRootLogger();
+    private static final Logger LOGGER = Logger.getLogger(SignInValidator.class);
     private static final UserDAO userDAO = new UserDAOImpl();
 
     @Override
