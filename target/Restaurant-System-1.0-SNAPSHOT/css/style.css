@@ -653,4 +653,9 @@ td {
     text-indent: 18px;
 }
 
+.invalid_message{
+    color: #cd0a0f;
+    font-size: 14px;
+}
+
 
