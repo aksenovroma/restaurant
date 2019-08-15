@@ -30,7 +30,7 @@ public class Controller extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) {
         String commandName = request.getParameter(getConst(PAR_COMMAND));
 
-        if (commandName != null) {
+        if (CommandManager.getEnums().contains(commandName.toUpperCase())) {
             Command command = CommandManager.getCommand(commandName);
 
             String page = command.execute(request);

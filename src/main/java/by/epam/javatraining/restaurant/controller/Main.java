@@ -1,5 +1,6 @@
 package by.epam.javatraining.restaurant.controller;
 
+import by.epam.javatraining.restaurant.command.CommandManager;
 import by.epam.javatraining.restaurant.model.dao.DishDAO;
 import by.epam.javatraining.restaurant.model.dao.OrderDAO;
 import by.epam.javatraining.restaurant.model.dao.UserDAO;
@@ -25,8 +26,7 @@ public class Main {
             map.put(2, 2);
             map.put(4, 2);
 
-            int i = 4;
-            System.out.println(userDAO.getLimit((2 - 1) * 5, 5));
+            System.out.println(CommandManager.getEnums().contains(null));
 
 
         } catch (DAOException e) {

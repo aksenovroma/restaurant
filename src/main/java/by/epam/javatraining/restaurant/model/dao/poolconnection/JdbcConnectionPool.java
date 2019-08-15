@@ -1,6 +1,7 @@
 package by.epam.javatraining.restaurant.model.dao.poolconnection;
 
 import by.epam.javatraining.restaurant.util.ConfigurationDB;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +12,7 @@ import java.util.List;
 import static by.epam.javatraining.restaurant.util.ConfigurationDB.*;
 
 public class JdbcConnectionPool {
+    private static final Logger LOGGER = Logger.getRootLogger();
 
     private List<Connection> availableConnections = new ArrayList<>();
 
@@ -25,7 +27,7 @@ public class JdbcConnectionPool {
     }
 
     private synchronized boolean checkIfConnectionPoolIsFull() {
-        final int MAX_POOL_SIZE = Integer.valueOf(ConfigurationDB.getProp(DB_MAX_CONNECTIONS));
+        final int MAX_POOL_SIZE = Integer.parseInt(ConfigurationDB.getProp(DB_MAX_CONNECTIONS));
 
         return availableConnections.size() >= MAX_POOL_SIZE;
     }
@@ -37,7 +39,7 @@ public class JdbcConnectionPool {
                     ConfigurationDB.getProp(DB_USER_NAME),
                     ConfigurationDB.getProp(DB_PASSWORD));
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
         return null;
 
@@ -53,7 +55,9 @@ public class JdbcConnectionPool {
     }
 
     public synchronized void returnConnectionToPool(Connection connection) {
-        availableConnections.add(connection);
+        if (connection != null) {
+            availableConnections.add(connection);
+        }
     }
 }
 

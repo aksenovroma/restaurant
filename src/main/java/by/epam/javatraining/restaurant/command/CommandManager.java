@@ -3,13 +3,14 @@ package by.epam.javatraining.restaurant.command;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import static by.epam.javatraining.restaurant.util.Constant.*;
 
 public class CommandManager {
     public enum CommandType {
-        UNKNOWN, SIGN_IN, SIGN_UP, SIGN_OUT, SHOW_MENU, DISH_ACTION, CHECK_OUT, SHOW_ORDER,
+        SIGN_IN, SIGN_UP, SIGN_OUT, SHOW_MENU, DISH_ACTION, CHECK_OUT, SHOW_ORDER,
         REMOVE_ORDER, ADD_DISH, SHOW_USERS, CHANGE_ROLE, ACCEPT_ORDER, CHANGE_LOCALE
     }
 
@@ -34,7 +35,7 @@ public class CommandManager {
     }
 
     public static Command getCommand(String commandName) {
-        CommandType commandType = CommandType.UNKNOWN;
+        CommandType commandType = null;
 
         try {
             commandType = CommandType.valueOf(commandName.toUpperCase());
@@ -43,5 +44,16 @@ public class CommandManager {
         }
 
         return commandMap.get(commandType);
+    }
+
+    public static HashSet<String> getEnums() {
+
+        HashSet<String> values = new HashSet<>();
+
+        for (CommandType c : CommandType.values()) {
+            values.add(c.name());
+        }
+
+        return values;
     }
 }

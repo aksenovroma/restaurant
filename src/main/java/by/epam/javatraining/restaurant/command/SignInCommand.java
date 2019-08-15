@@ -32,15 +32,16 @@ public class SignInCommand implements Command {
                 login = InputDefence.scriptPrevention(login);
                 User user = userDAO.getByLogin(login);
 
-                req.getSession().setAttribute(getConst(ATR_ID_USER), user.getId());
-                req.getSession().setAttribute(getConst(ATR_USER_NAME), user.getName());
-                req.getSession().setAttribute(getConst(ATR_LOGIN), user.getLogin());
-                req.getSession().setAttribute(getConst(ATR_PASSWORD), user.getPassword());
-                req.getSession().setAttribute(getConst(ATR_ROLE), user.getUserRole().getRole());
-                req.getSession().setAttribute(getConst(ATR_USER_PHOTO), user.getPhoto());
-
-                if (user.getUserRole().equals(UserRole.ADMIN)) {
-                    req.getSession().setAttribute("pageNumber", 1);
+                if (user != null) {
+                    req.getSession().setAttribute(getConst(ATR_ID_USER), user.getId());
+                    req.getSession().setAttribute(getConst(ATR_USER_NAME), user.getName());
+                    req.getSession().setAttribute(getConst(ATR_LOGIN), user.getLogin());
+                    req.getSession().setAttribute(getConst(ATR_PASSWORD), user.getPassword());
+                    req.getSession().setAttribute(getConst(ATR_ROLE), user.getUserRole().getRole());
+                    req.getSession().setAttribute(getConst(ATR_USER_PHOTO), user.getPhoto());
+                    if (user.getUserRole().equals(UserRole.ADMIN)) {
+                        req.getSession().setAttribute("pageNumber", 1);
+                    }
                 }
 
                 page = getConst(PAGE_MAIN);

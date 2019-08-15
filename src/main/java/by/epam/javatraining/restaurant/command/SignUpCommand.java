@@ -34,15 +34,18 @@ public class SignUpCommand implements Command {
 
                 User user = new User(name, login, password);
                 userDAO.insert(user);
+                System.out.println("up " + login);
                 user = userDAO.getByLogin(login);
+                System.out.println("up " + user);
 
-                req.getSession().setAttribute(getConst(ATR_ID_USER), user.getId());
-                req.getSession().setAttribute(getConst(ATR_USER_NAME), user.getName());
-                req.getSession().setAttribute(getConst(ATR_LOGIN), user.getLogin());
-                req.getSession().setAttribute(getConst(ATR_PASSWORD), user.getPassword());
-                req.getSession().setAttribute(getConst(ATR_ROLE), user.getUserRole().getRole());
-                req.getSession().setAttribute(getConst(ATR_USER_PHOTO), user.getPhoto());
-
+                if (user != null) {
+                    req.getSession().setAttribute(getConst(ATR_ID_USER), user.getId());
+                    req.getSession().setAttribute(getConst(ATR_USER_NAME), user.getName());
+                    req.getSession().setAttribute(getConst(ATR_LOGIN), user.getLogin());
+                    req.getSession().setAttribute(getConst(ATR_PASSWORD), user.getPassword());
+                    req.getSession().setAttribute(getConst(ATR_ROLE), user.getUserRole().getRole());
+                    req.getSession().setAttribute(getConst(ATR_USER_PHOTO), user.getPhoto());
+                }
                 page = getConst(PAGE_MAIN);
             }
         } catch (UserDAOException e) {

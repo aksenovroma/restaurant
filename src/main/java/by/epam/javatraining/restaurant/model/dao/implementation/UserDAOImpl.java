@@ -197,7 +197,6 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         } finally {
             returnConnection(connection);
         }
-
         return exist;
     }
 
