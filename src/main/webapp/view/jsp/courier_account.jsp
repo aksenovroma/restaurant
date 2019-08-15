@@ -17,7 +17,7 @@
     <title>${title}</title>
 </head>
 <body class="bg">
-<%@include file="header.jsp" %>
+<%@include file="jspf/header.jsp" %>
 <form method="post" action="${pageContext.request.contextPath}/restaurant">
     <input type="hidden" name="command" value="show_order"/>
     <div>
@@ -28,6 +28,6 @@
     </div>
 </form>
 
-<%@include file="footer.jsp" %>
+<%@include file="jspf/footer.jsp" %>
 </body>
 </html>

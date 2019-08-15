@@ -23,7 +23,7 @@
 </head>
 <body class="bg">
 
-<%@include file="header.jsp" %>
+<%@include file="jspf/header.jsp" %>
 
 <div class="sign_in">
     <form class="login-form" method="post" action="${pageContext.request.contextPath}/restaurant">
@@ -39,7 +39,7 @@
     </form>
 </div>
 
-<%@include file="footer.jsp" %>
+<%@include file="jspf/footer.jsp" %>
 
 </body>
 </html>

@@ -26,6 +26,8 @@ public class Constant {
     public static final String PAR_IMAGE_URL = "par.image_url";
     public static final String PAR_DESCRIPTION = "par.description";
     public static final String PAR_ACCEPT_ORDER = "par.accept_order";
+    public static final String PAR_LEFT_PAGE = "par.left_page";
+    public static final String PAR_RIGHT_PAGE = "par.right_page";
 
     //attributes
     public static final String ATR_ID_USER = "atr.iduser";
@@ -41,6 +43,7 @@ public class Constant {
     public static final String ATR_ORDER_DISHES = "atr.order_dishes";
     public static final String ATR_ORDER = "atr.order";
     public static final String ATR_LOCALE = "atr.locale";
+    public static final String ATR_PAGE_NUMBER = "atr.page_number";
 
     //logger
     public static final String LOG_SIGN_UP_START = "log.sign_up_start";
@@ -74,6 +77,7 @@ public class Constant {
     public static final String LOG_CHARSET_FILTER_DESTROY = "log.charset_filter_destroy";
 
     public static final String USER_DEFAULT_PHOTO = "user.default_photo";
+    public static final String MAX_USERS_ON_PAGE = "user_list.max_count";
 
     static {
         resourceBundle = ResourceBundle.getBundle("constant");

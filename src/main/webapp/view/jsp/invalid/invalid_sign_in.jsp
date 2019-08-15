@@ -20,11 +20,11 @@
 <html>
 <head>
     <title>${title}</title>
-    <link rel="stylesheet" href="../../css/style.css" type="text/css">
+    <link rel="stylesheet" href="../../../css/style.css" type="text/css">
 </head>
 <body class="bg">
 
-<%@include file="header.jsp" %>
+<%@include file="../jspf/header.jsp" %>
 
 <div class="sign_in">
     <form class="login-form" method="post" action="${pageContext.request.contextPath}/restaurant">
@@ -34,14 +34,14 @@
                 <input type="text" required placeholder="${login}" name="login"/>
                 <input type="password" required placeholder="${password}" name="password"/>
                 <input type="submit" value="${sign_in_btn}">
-                <p class="message">${not_reg} <a href="sign_up.jsp">${create}</a></p>
+                <p class="message">${not_reg} <a href="../sign_up.jsp">${create}</a></p>
                 <p class="invalid_message">${error}</p>
             </div>
         </div>
     </form>
 </div>
 
-<%@include file="footer.jsp" %>
+<%@include file="../jspf/footer.jsp" %>
 
 </body>
 </html>

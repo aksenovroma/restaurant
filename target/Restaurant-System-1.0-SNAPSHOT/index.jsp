@@ -19,13 +19,13 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
   </head>
   <body class="bg">
-  <%@include file="view/jsp/header.jsp"%>
+  <%@include file="view/jsp/jspf/header.jsp"%>
 
   <form method="post" action="${pageContext.request.contextPath}/restaurant">
     <input type="hidden" name="command" value="show_menu"/>
     <input class="btn_menu" type="submit" value="${menu}"/>
   </form>
 
-  <%@include file="view/jsp/footer.jsp"%>
+  <%@include file="view/jsp/jspf/footer.jsp"%>
   </body>
 </html>

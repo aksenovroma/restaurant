@@ -20,6 +20,7 @@ public class ShowMenuCommand implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         try {
+
             List dishes = dishDAO.getAll();
             req.getSession().setAttribute(getConst(ATR_DISHES), dishes);
             HashMap<Integer, Integer> orderDishes = new HashMap<>();

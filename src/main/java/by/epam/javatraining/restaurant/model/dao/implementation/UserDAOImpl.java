@@ -36,6 +36,9 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     private static final String SQL_GET_ALL_USERS = "SELECT user.iduser, name, login, password, photo, user_role.role " +
             "FROM user INNER JOIN user_role ON user.iduser = user_role.iduser;";
 
+    private static final String SQL_GET_LIMIT_USERS = "SELECT user.iduser, name, login, password, photo, user_role.role " +
+            "FROM user INNER JOIN user_role ON user.iduser = user_role.iduser LIMIT ?, ?;";
+
     private static final String SQL_EXIST_LOGIN =
             "SELECT iduser FROM user WHERE login = ?";
 
@@ -196,6 +199,27 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         }
 
         return exist;
+    }
+
+    @Override
+    public List<User> getLimit(int start, int count) throws UserDAOException {
+        List<User> users = new ArrayList<>();
+        Connection connection = getConnection();
+
+        try (PreparedStatement statement = prepareStatement(connection, SQL_GET_LIMIT_USERS,
+                false, start, count)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    users.add(map(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            throw new UserDAOException(ERR_GET_USER + e);
+        } finally {
+            returnConnection(connection);
+        }
+
+        return users;
     }
 
     private void updateStatement(String sql, Object... values) throws UserDAOException{

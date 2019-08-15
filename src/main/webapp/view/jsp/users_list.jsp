@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
 </head>
 <body class="bg">
-<%@include file="header.jsp" %>
+<%@include file="jspf/header.jsp" %>
 <form id="user_form" method="post" action="${pageContext.request.contextPath}/restaurant">
     <input type="hidden" name="command" value="change_role"/>
     <div>
@@ -76,8 +76,19 @@
                 </c:forEach>
             </table>
         </div>
+        <div class="show_users_btn_div">
+            <div class="menu_count">
+                <button class="show_users_btn_left" type="submit" name="left_page" value="${sessionScope.pageNumber}"></button>
+            </div>
+            <div class="number_page">
+                ${sessionScope.pageNumber}
+            </div>
+            <div class="menu_count">
+                <button class="show_users_btn_right" type="submit" name="right_page" value="${sessionScope.pageNumber}"></button>
+            </div>
+        </div>
     </div>
 </form>
-<%@include file="footer.jsp" %>
+<%@include file="jspf/footer.jsp" %>
 </body>
 </html>

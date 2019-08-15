@@ -31,7 +31,7 @@
 </head>
 <body class="bg">
 <div>
-    <%@include file="header.jsp" %>
+    <%@include file="jspf/header.jsp" %>
 </div>
 
 
@@ -130,7 +130,7 @@
     </div>
 </form>
 
-<%@include file="footer.jsp" %>
+<%@include file="jspf/footer.jsp" %>
 
 </body>
 </html>

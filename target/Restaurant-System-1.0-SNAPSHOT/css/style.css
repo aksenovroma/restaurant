@@ -15,8 +15,11 @@
     transform: translate(-50%, 0);
 }
 .bg{
-    background-attachment: fixed;
-    background-image: url("../view/image/background.jpg");
+    background: url(../view/image/background.jpg) no-repeat center 30px fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .header {
@@ -580,7 +583,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     margin-right: 50px;
     margin-left: 50px;
 }
@@ -590,6 +593,38 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.show_users_btn_left{
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    background-image: url(https://img.icons8.com/wired/100/000000/circled-left-2.png);
+    background-size: 30px, 30px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.show_users_btn_right{
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    background-image: url(https://img.icons8.com/wired/100/000000/circled-right-2.png);
+    background-size: 30px, 30px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.show_users_btn_div {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.number_page {
+    display: inline-block;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
 }
 
 table {

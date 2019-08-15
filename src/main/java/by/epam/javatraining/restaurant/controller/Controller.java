@@ -2,6 +2,7 @@ package by.epam.javatraining.restaurant.controller;
 
 import by.epam.javatraining.restaurant.command.Command;
 import by.epam.javatraining.restaurant.command.CommandManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,9 @@ import java.io.IOException;
 import static by.epam.javatraining.restaurant.util.Constant.*;
 
 public class Controller extends HttpServlet {
+    private static final Logger LOGGER = Logger.getRootLogger();
+    private static final String ERR_MSG_CONTROLLER = "Controller ERROR : ";
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         process(request, response);
@@ -36,7 +40,7 @@ public class Controller extends HttpServlet {
             try {
                 dispatcher.forward(request, response);
             } catch (ServletException | IOException e) {
-                e.printStackTrace();
+                LOGGER.error(ERR_MSG_CONTROLLER + e);
             }
         }
     }

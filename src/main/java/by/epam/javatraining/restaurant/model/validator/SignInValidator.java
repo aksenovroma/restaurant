@@ -4,6 +4,7 @@ import by.epam.javatraining.restaurant.model.dao.UserDAO;
 import by.epam.javatraining.restaurant.model.dao.implementation.UserDAOImpl;
 import by.epam.javatraining.restaurant.model.entity.User;
 import by.epam.javatraining.restaurant.model.exception.tecnical.UserDAOException;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import static by.epam.javatraining.restaurant.util.Constant.*;
 
 public class SignInValidator implements Validator {
-    private static final Logger LOGGER = Logger.getLogger(SignInValidator.class);
+    private static final Logger LOGGER = LogManager.getLogger(SignInValidator.class);
     private static final UserDAO userDAO = new UserDAOImpl();
 
     @Override

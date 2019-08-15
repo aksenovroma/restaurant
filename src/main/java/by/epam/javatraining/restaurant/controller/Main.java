@@ -25,8 +25,9 @@ public class Main {
             map.put(2, 2);
             map.put(4, 2);
 
-            String str = "Окрошка";
-            System.out.println(dishDAO.existName(str));
+            int i = 4;
+            System.out.println(userDAO.getLimit((2 - 1) * 5, 5));
+
 
         } catch (DAOException e) {
             e.printStackTrace();

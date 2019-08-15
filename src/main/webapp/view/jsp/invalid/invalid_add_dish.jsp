@@ -27,14 +27,14 @@
 <html>
 <head>
     <title>${title}</title>
-    <link rel="stylesheet" href="../../css/style.css" type="text/css">
-    <script src="../../js/numberValidation.js"></script>
+    <link rel="stylesheet" href="../../../css/style.css" type="text/css">
+    <script src="../../../js/numberValidation.js"></script>
 </head>
 <body class="bg">
-    <%@include file="header.jsp"%>
+    <%@include file="../jspf/header.jsp"%>
     <div>
         <form id="form_add_dish" method="post" action="${pageContext.request.contextPath}/restaurant"
-              onsubmit="javascript:return validateNumber('form_add_dish','price','weight')">
+              onsubmit="return validateNumber('form_add_dish','price','weight')">
             <input type="hidden" name="command" value="add_dish"/>
             <div class="login-page">
                 <div class="add_dish_form">
@@ -58,6 +58,6 @@
             </div>
         </form>
     </div>
-    <%@include file="footer.jsp"%>
+    <%@include file="../jspf/footer.jsp"%>
 </body>
 </html>

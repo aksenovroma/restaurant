@@ -22,17 +22,16 @@
 <head>
     <title>${title}</title>
     <link rel="stylesheet" href="../../css/style.css" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="../../js/emailValidation.js"></script>
     <script src="../../js/passwordValidation.js"></script>
 </head>
 <body class="bg">
 
-<%@include file="header.jsp"%>
+<%@include file="jspf/header.jsp"%>
 
 <div class="sign_up">
     <form id="form_id" method="post" action="${pageContext.request.contextPath}/restaurant"
-          onsubmit="validate('form_id','login');validatePassword('form_id','password')">
+          onsubmit="return (validate('form_id','login') && validatePassword('form_id','password'));">
         <input type="hidden" name="command" value="sign_up"/>
         <div class="login-page">
             <div class="form">
@@ -48,7 +47,7 @@
     </form>
 </div>
 
-<%@include file="footer.jsp"%>
+<%@include file="jspf/footer.jsp"%>
 
 </body>
 </html>

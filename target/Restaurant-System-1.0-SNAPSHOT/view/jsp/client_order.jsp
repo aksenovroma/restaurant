@@ -30,7 +30,7 @@
 </head>
 <body class="bg">
 <div>
-    <%@include file="header.jsp" %>
+    <%@include file="jspf/header.jsp" %>
 </div>
 <div>
     <form method="post" action="${pageContext.request.contextPath}/restaurant">
@@ -100,7 +100,7 @@
     </form>
 </div>
 <div>
-    <%@include file="footer.jsp" %>
+    <%@include file="jspf/footer.jsp" %>
 </div>
 </body>
 </html>
