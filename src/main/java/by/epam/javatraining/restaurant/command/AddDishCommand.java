@@ -44,6 +44,7 @@ public class AddDishCommand implements Command {
                 LOGGER.error(e);
             }
         }
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
         return page;
     }
 }

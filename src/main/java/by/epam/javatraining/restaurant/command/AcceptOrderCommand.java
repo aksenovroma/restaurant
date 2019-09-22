@@ -17,6 +17,7 @@ public class AcceptOrderCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
+        String page = getConst(PAGE_COURIER_ORDER);
         try {
             int idOrder = Integer.parseInt(req.getParameter(getConst(PAR_ACCEPT_ORDER)));
             int idCourier = (int) req.getSession().getAttribute(getConst(ATR_ID_USER));
@@ -27,6 +28,7 @@ public class AcceptOrderCommand implements Command {
         } catch (DAOException e) {
             LOGGER.error(e);
         }
-        return getConst(PAGE_COURIER_ORDER);
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
+        return page;
     }
 }

@@ -19,6 +19,7 @@ public class ChangeRoleCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
+        String page = getConst(PAGE_USERS_LIST);
         String client = req.getParameter(getConst(PAR_USER_ROLE_CLIENT));
         String courier = req.getParameter(getConst(PAR_USER_ROLE_COURIER));
 
@@ -55,6 +56,7 @@ public class ChangeRoleCommand implements Command {
             LOGGER.error(e);
         }
 
-        return getConst(PAGE_USERS_LIST);
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
+        return page;
     }
 }

@@ -31,6 +31,7 @@ public class SignUpValidator implements Validator {
                 LOGGER.error(e);
             }
         }
+        LOGGER.info(this.getClass().getName() + getConst(RETURN) + result);
         return result;
     }
 }

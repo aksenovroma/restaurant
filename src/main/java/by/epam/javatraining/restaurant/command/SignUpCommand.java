@@ -34,9 +34,7 @@ public class SignUpCommand implements Command {
 
                 User user = new User(name, login, password);
                 userDAO.insert(user);
-                System.out.println("up " + login);
                 user = userDAO.getByLogin(login);
-                System.out.println("up " + user);
 
                 if (user != null) {
                     req.getSession().setAttribute(getConst(ATR_ID_USER), user.getId());
@@ -52,6 +50,7 @@ public class SignUpCommand implements Command {
             LOGGER.error(e);
         }
 
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
         return page;
     }
 }

@@ -2,6 +2,7 @@ package by.epam.javatraining.restaurant.model.logic;
 
 import by.epam.javatraining.restaurant.model.entity.Dish;
 import by.epam.javatraining.restaurant.model.entity.Order;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Map;
 import static by.epam.javatraining.restaurant.util.Constant.*;
 
 public class OrderManager implements Manager {
+    private static final Logger LOGGER = Logger.getRootLogger();
+
     @Override
     public double calcTotalPrice(Order order, HttpServletRequest req) {
         double price = -1;
@@ -30,6 +33,7 @@ public class OrderManager implements Manager {
                 }
             }
         }
+        LOGGER.trace("price : " + price);
         return price;
     }
 
@@ -53,6 +57,7 @@ public class OrderManager implements Manager {
                 }
             }
         }
+        LOGGER.trace("weight : " + weight);
         return weight;
     }
 }

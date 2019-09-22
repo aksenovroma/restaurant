@@ -16,6 +16,7 @@ public class RemoveOrderCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
+        String page = getConst(PAGE_CLIENT_ORDER);
         try {
             int idOrder = Integer.parseInt(req.getParameter(getConst(PAR_REMOVE_ORDER)));
             orderDAO.delete(idOrder);
@@ -28,6 +29,7 @@ public class RemoveOrderCommand implements Command {
         } catch (DAOException e) {
             LOGGER.error(e);
         }
-        return getConst(PAGE_CLIENT_ORDER);
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
+        return page;
     }
 }

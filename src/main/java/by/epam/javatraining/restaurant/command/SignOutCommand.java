@@ -11,10 +11,13 @@ public class SignOutCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
+        String page = getConst(PAGE_MAIN);
+
         LOGGER.info(getConst(LOG_SIGN_OUT_START));
 
         req.getSession().invalidate();
 
-        return getConst(PAGE_MAIN);
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
+        return page;
     }
 }

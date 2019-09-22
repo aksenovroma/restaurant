@@ -19,6 +19,7 @@ public class ShowMenuCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
+        String page = getConst(PAGE_MENU);
         try {
 
             List dishes = dishDAO.getAll();
@@ -31,6 +32,7 @@ public class ShowMenuCommand implements Command {
         } catch (DAOException e) {
             LOGGER.error(e);
         }
-        return getConst(PAGE_MENU);
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
+        return page;
     }
 }

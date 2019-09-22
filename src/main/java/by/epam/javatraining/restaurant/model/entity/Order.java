@@ -9,7 +9,7 @@ public class Order extends Entity{
     private String time;
     private OrderState orderState = OrderState.NOT_ACCEPTED;
     private double totalPrice;
-    private double totalWeight;
+    private double totalWeight; //BIg
     private String address;
     private Map<Integer, Integer> dishes;
 

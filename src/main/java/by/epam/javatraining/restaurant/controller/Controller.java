@@ -30,18 +30,20 @@ public class Controller extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) {
         String commandName = request.getParameter(getConst(PAR_COMMAND));
 
-        if (CommandManager.getEnums().contains(commandName.toUpperCase())) {
-            Command command = CommandManager.getCommand(commandName);
+        try {
+            if (CommandManager.getEnums().contains(commandName.toUpperCase())) {
+                Command command = CommandManager.getCommand(commandName);
 
-            String page = command.execute(request);
+                String page = command.execute(request);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+                RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 
-            try {
                 dispatcher.forward(request, response);
-            } catch (ServletException | IOException e) {
-                LOGGER.error(ERR_MSG_CONTROLLER + e);
+            } else {
+                response.sendRedirect(getConst(PAGE_ERROR));
             }
+        } catch (ServletException | IOException e) {
+            LOGGER.error(ERR_MSG_CONTROLLER + e);
         }
     }
 }

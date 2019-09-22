@@ -44,6 +44,7 @@ public class ShowOrderCommand implements Command {
         } catch (DAOException e) {
             LOGGER.error(e);
         }
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
         return page;
     }
 }

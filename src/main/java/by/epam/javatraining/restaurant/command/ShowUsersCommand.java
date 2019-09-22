@@ -18,6 +18,7 @@ public class ShowUsersCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
+        String page = getConst(PAGE_USERS_LIST);
         List users = null;
         Object pageNumber = req.getSession().getAttribute(getConst(ATR_PAGE_NUMBER));
 
@@ -29,6 +30,7 @@ public class ShowUsersCommand implements Command {
         }
 
         req.getSession().setAttribute(getConst(ATR_USERS), users);
-        return getConst(PAGE_USERS_LIST);
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
+        return page;
     }
 }

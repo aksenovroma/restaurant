@@ -69,6 +69,7 @@ public class Constant {
     public static final String PAGE_COURIER_ORDER = "page.courier_order";
     public static final String PAGE_ADD_DISH = "page.add_dish";
     public static final String PAGE_INVALID_ADD_DISH = "page.invalid_add_dish";
+    public static final String PAGE_ERROR = "page.error";
 
     //filter
     public static final String LOG_CHARSET_FILTER_INIT = "log.charset_filter_init";
@@ -78,6 +79,8 @@ public class Constant {
 
     public static final String USER_DEFAULT_PHOTO = "user.default_photo";
     public static final String MAX_USERS_ON_PAGE = "user_list.max_count";
+
+    public static final String RETURN = "return";
 
     static {
         resourceBundle = ResourceBundle.getBundle("constant");

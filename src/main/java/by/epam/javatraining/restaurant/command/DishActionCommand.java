@@ -67,8 +67,7 @@ public class DishActionCommand implements Command {
                     order.setTotalWeight(orderManager.calcTotalWeight(order, req));
                     req.getSession().setAttribute(getConst(ATR_ORDER), order);
                     pagePath = getConst(PAGE_RESERVATION);
-                    return pagePath;
-                } else {
+                    LOGGER.trace(this.getClass().getName() + getConst(RETURN) + pagePath);
                     return pagePath;
                 }
             } else if (clear != null) {
@@ -80,7 +79,6 @@ public class DishActionCommand implements Command {
                     }
                     req.getSession().setAttribute(getConst(ATR_ORDER_DISHES), orderDishes);
                 }
-                return pagePath;
             } else if (removeDishFromMenu != null) {
                 try {
                     dishDAO.delete(Integer.parseInt(removeDishFromMenu));
@@ -88,9 +86,9 @@ public class DishActionCommand implements Command {
                 } catch (DAOException e) {
                     LOGGER.error(e);
                 }
-                return pagePath;
             }
         }
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + pagePath);
         return pagePath;
     }
 

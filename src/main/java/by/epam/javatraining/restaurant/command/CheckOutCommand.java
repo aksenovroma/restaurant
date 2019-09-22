@@ -21,6 +21,7 @@ public class CheckOutCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
+        String page = getConst(PAGE_MAIN);
         Order order = (Order) req.getSession().getAttribute(getConst(ATR_ORDER));
 
         String address = req.getParameter(getConst(PAR_ADDRESS));
@@ -47,6 +48,7 @@ public class CheckOutCommand implements Command {
             LOGGER.error(e);
         }
 
-        return getConst(PAGE_MAIN);
+        LOGGER.trace(this.getClass().getName() + getConst(RETURN) + page);
+        return page;
     }
 }
